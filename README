@@ -1,1 +1,3 @@
 This is a fork of https://gist.github.com/996827 with some heavy modifications.
+
+Copy the .js.dist files to .js and edit their values in order to setup this bot.

@@ -1,0 +1,17 @@
+config = {
+    user: {
+	nick: '',
+	user: '',
+	real: 'ZenIRCBot',
+	pass: ''
+    },
+    server: {
+	addr: 'irc.freenode.net',
+	port: 6667
+    },
+    chans: {
+	channelname: 'password' // set password to '' if there is no password
+    }
+};
+
+module.exports = config;

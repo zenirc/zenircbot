@@ -1,0 +1,6 @@
+var config = {
+    channel: '',
+    jira_url: '',
+};
+
+module.exports = config;

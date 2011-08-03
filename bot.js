@@ -23,7 +23,7 @@ irc.socket.on('connect', function() {
 	irc.raw('PONG :' + info[1]);
     });
 
-    irc.on(/^.*PRIVMSG (#\w+) :(.*)$/, function(info) {
+    irc.on(/^.*?PRIVMSG (#\w+) :(.*)$/, function(info) {
 	redis.publish(info[1] + '_in', info[2]);
     });
 

@@ -23,15 +23,20 @@ irc.socket.on('connect', function() {
 	irc.raw('PONG :' + info[1]);
     });
 
-    irc.on(/^.*?PRIVMSG (#\w+) :(.*)$/, function(info) {
-	redis.publish(info[1] + '_in', info[2]);
+    irc.on(/^:(.*?)!.*?PRIVMSG (#?\w+) :(.*)$/, function(info) {
+	message = {
+	    channel: info[2],
+	    sender: info[1],
+	    message: info[3],
+	}
+	redis.publish('in', JSON.stringify(message));
     });
 
     irc.input = redis_lib.createClient();
-    irc.input.psubscribe('*_out');
-    irc.input.on('pmessage', function(pattern, channel, message) {
-	console.log('irc.input.psubscribe ' + channel + ': ' + message);
-	irc.message(channel.substring(0, channel.length-4), message);
+    irc.input.subscribe('out');
+    irc.input.on('message', function(channel, message) {
+	msg = JSON.parse(message)
+	irc.message(msg.channel, msg.message);
     });
 
     setTimeout(function() {

@@ -4,11 +4,16 @@ var sub = redis_lib.createClient();
 var ticket = /(?:\s|^)([a-zA-Z][a-zA-Z]-\d+)/;
 var config = require('./jira_config')
 
-sub.subscribe(config.channel + '_in');
+sub.subscribe('in');
 sub.on('message', function(channel, message){
-    if (ticket.test(message)) {
-	result = ticket.exec(message)
+    msg = JSON.parse(message)
+    if (msg.channel == config.channel && ticket.test(msg.message)) {
+	result = ticket.exec(msg.message)
 	console.log(result[1])
-	pub.publish(config.channel + '_out', config.jira_url + 'browse/' + result[1]);
+	reply = {
+	    channel: msg.channel,
+	    message: config.jira_url + 'browse/' + result[1],
+	}
+	pub.publish('out', JSON.stringify(reply));
     }
 });

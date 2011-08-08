@@ -24,7 +24,7 @@ tests.direct_msg = function(pattern) {
     assert.ok(pattern.test(chatter));
     privmsg = pattern.exec(chatter);
     assert.equal(privmsg[1], sender);
-    assert.equal(privmsg[2], channel);
+    assert.equal(privmsg[2], sender);
     assert.equal(privmsg[3], message);
     return true;
 };

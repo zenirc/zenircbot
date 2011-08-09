@@ -14,13 +14,17 @@ app.post('/', function(req, res) {
     repo = github_json.repository.name;
     name = '';
     username = '';
+    name_str = '';
     for (var i=0; i< github_json.commits.length; i++) {
 	commit = github_json.commits[i];
 	if (commit.author.username) {
 	    username = commit.author.username;
 	    name = commit.author.name;
+	    if (username) {
+		name_str = ' - ' + username + ' (' + name + ')';
+	    }
 	}
-	message = repo + ': ' + commit.id.substr(0,7) + ' *' + color.green + branch + color.reset +'* ' + commit.message + ' - ' + username + ' (' + name + ')';
+	message = repo + ': ' + commit.id.substr(0,7) + ' *' + color.green + branch + color.reset +'* ' + commit.message + name_str;
 	reply = {
 	    channel: github_config.channel,
 	    message: message,

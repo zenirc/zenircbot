@@ -17,6 +17,8 @@ app.post('/', function(req, res) {
 	commit = github_json.commits[i];
 	if (commit.author.username) {
 	    name_str = ' - ' + commit.author.username + ' (' + commit.author.name + ')';
+	} else if (commit.author.name) {
+	    name_str = ' - ' + commit.author.name;
 	} else {
 	    name_str = '';
 	}

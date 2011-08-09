@@ -1,0 +1,6 @@
+var config = {
+    channel: '',
+    port: '',
+};
+
+module.exports = config;

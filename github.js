@@ -12,24 +12,20 @@ app.post('/', function(req, res) {
     
     branch = github_json.ref.substr(11);
     repo = github_json.repository.name;
-    name = '';
-    username = '';
     name_str = '';
     for (var i=0; i< github_json.commits.length; i++) {
 	commit = github_json.commits[i];
 	if (commit.author.username) {
-	    username = commit.author.username;
-	    name = commit.author.name;
-	    if (username) {
-		name_str = ' - ' + username + ' (' + name + ')';
-	    }
+	    name_str = ' - ' + commit.author.username + ' (' + commit.author.name + ')';
+	} else {
+	    name_str = '';
 	}
 	message = repo + ': ' + commit.id.substr(0,7) + ' *' + color.green + branch + color.reset +'* ' + commit.message + name_str;
 	reply = {
 	    channel: github_config.channel,
 	    message: message,
 	};
-	console.log(branch + ': ' + username);
+	console.log(branch + ': ' + commit.author.username);
 	client.publish('out', JSON.stringify(reply));
     }
 });

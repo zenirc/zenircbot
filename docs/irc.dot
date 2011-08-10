@@ -23,7 +23,7 @@ digraph G {
 		label = "{say message | \{\lchannel: \"#channel\",\lmessage: \"message\",\ltarget: \"nick\",\l\}\l}"
 	];
 	message_admin [
-		label = "{admin message | \{\lcommand: \"\(JOIN\|NICK\r|etc\)\",\largs: \"arguments\"\l\}\l}"
+		label = "{admin message | \{\lcommand: \"\(JOIN\|NICK\|etc\)\",\largs: \"arguments\"\l\}\l}"
 	];
 
 	bot -> message_in -> in -> message_in -> service;

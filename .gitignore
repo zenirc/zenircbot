@@ -1,3 +1,4 @@
 *config.js
 *config.py
 node_modules
+*.pyc

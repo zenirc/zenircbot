@@ -2,7 +2,7 @@ var express = require('express');
 var app = express.createServer();
 var redis = require('redis');
 var client = redis.createClient();
-var color = require('./colors');
+var color = require('../lib/colors');
 var github_config = require('./github_config');
 
 app.use(express.bodyParser());

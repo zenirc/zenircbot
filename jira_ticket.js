@@ -2,7 +2,7 @@ var redis_lib = require('redis');
 var pub = redis_lib.createClient();
 var sub = redis_lib.createClient();
 var ticket = /(?:\s|^)([a-zA-Z][a-zA-Z]-\d+)/;
-var config = require('./jira_config')
+var config = require('./jira_ticket_config')
 
 sub.subscribe('in');
 sub.on('message', function(channel, message){

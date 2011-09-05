@@ -11,7 +11,8 @@ config = {
     },
     chans: {
 	channelname: 'password' // set password to '' if there is no password
-    }
+    },
+    admin: '',
 };
 
 module.exports = config;

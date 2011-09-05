@@ -5,6 +5,11 @@ var client = redis.createClient();
 var color = require('../lib/colors');
 var github_config = require('./github_config');
 
+client.publish('out', JSON.stringify({
+    channel: '#pdxbots',
+    message: 'github post commit hook listener online',
+}));
+
 app.use(express.bodyParser());
 
 app.post('/', function(req, res) {

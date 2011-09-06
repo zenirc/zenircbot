@@ -18,7 +18,7 @@ sub.subscribe('in');
 sub.on('message', function(channel, message){
     msg = JSON.parse(message)
     if (msg.sender == bot_config.admin) { 
-	if (msg.message == 'ZenWraithBot: restart') {
+	if (msg.message == bot_config.user.nick + ': restart') {
 	    pub.publish('out', JSON.stringify({
 		channel: config.channel,
 		message: 'brb!',
@@ -31,7 +31,7 @@ sub.on('message', function(channel, message){
 		message: 'restarting ' + result[1],
 	    }));
 	    exec("fab zenbot service:" + result[1], puts);
-	} else if (msg.message == 'ZenWraithBot: pull') {
+	} else if (msg.message == bot_config.user.nick + ': pull') {
 	    pub.publish('out', JSON.stringify({
 		channel: config.channel,
 		message: 'pulling down new code',

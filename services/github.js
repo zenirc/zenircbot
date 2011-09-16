@@ -6,7 +6,7 @@ var color = require('../lib/colors');
 var github_config = require('./github_config');
 
 client.publish('out', JSON.stringify({
-    channel: '#pdxbots',
+    channel: github_config.channel,
     message: 'github post commit hook listener online',
 }));
 

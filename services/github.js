@@ -6,7 +6,7 @@ var github_config = require('./github_config');
 
 pub.publish('out', JSON.stringify({
     channel: github_config.channel,
-    message: 'github post commit hook listener online',
+    message: 'github post commit hook broadcaster online',
 }));
 
 sub.subscribe('web_in')

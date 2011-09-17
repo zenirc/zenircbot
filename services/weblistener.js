@@ -20,6 +20,7 @@ app.post('/:app', function(req, res) {
 	body: req.body
     };
     client.publish('web_in', JSON.stringify(message));
+    res.send('',404)
 });
 
 app.listen(weblistener_config.port);

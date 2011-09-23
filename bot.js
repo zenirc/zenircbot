@@ -27,15 +27,15 @@ irc.socket.on('connect', function() {
 	message = {
 	    channel: info[2],
 	    sender: info[1],
-	    message: info[3],
-	}
+	    message: info[3]
+	};
 	redis.publish('in', JSON.stringify(message));
     });
 
     irc.input = redis_lib.createClient();
     irc.input.subscribe('out');
     irc.input.on('message', function(channel, message) {
-	msg = JSON.parse(message)
+	msg = JSON.parse(message);
 	irc.message(msg.channel, msg.message);
     });
 

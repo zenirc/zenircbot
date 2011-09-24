@@ -13,7 +13,7 @@ Getting the bot running
 
 To start with you'll need to install Node_, npm_ and Redis_. Once you
 have those you'll need to use npm to install the node library for
-redis.:
+redis::
 
     npm install redis
 
@@ -29,7 +29,7 @@ it of course)::
 
 Once you've done that it is on to configuring the bot. All of the
 configs have examples provided in the form of .dist files. The first
-one that will concern us is config.js in the root.:
+one that will concern us is config.js in the root::
 
     cp config.js.dist config.js
 

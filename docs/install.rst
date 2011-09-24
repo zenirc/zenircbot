@@ -1,27 +1,58 @@
 Install
 =======
 
-Copy the .js.dist files to .js and edit their values in order to setup
-this bot.
+Installing ZenIRCBot will one day be much simpler, but for now there
+are a number of steps to it.
 
-You'll need to install the node library `redis` (installed via npm) to
-run the base bot. github.js relies on `express` (installed via npm)
-and jira_feed.py relies on `BeautifulSoup<4.0`, `feedparser` and
-`redis` (installed via pip or easy_install)
+To start with, the bot is written in JavaScript_ using the Node_
+platform. Two of the services are written in or rely on Python_ the
+rest are written in JavaScript.
 
-To start it, run `node bot.js`.
+Getting the bot running
+-----------------------
 
-You'll find interesting services in `services/` and you can run them
-using their respective interpreter.
+To start with you'll need to install Node_, npm_ and Redis_. Once you
+have those you'll need to use npm to install the node library for
+redis.
 
-ZenIRCBot uses redis to communicate via pub/sub. The bot writes
-everything to the redis channel `out` and reads what to say from the
-redis channel `in`.
+    npm install redis
 
-The admin service has now defined a structure for running the bot. It
-assumes you are running it in tmux, with specifically named
-windows. If you start the bot using fabric and the command `fab zenbot
-restart` it will start tmux and start the bot, then do `fab zenbot
-service:admin` and it will start the admin service. From there you can
-issue commands to the bot like `botname: service github` and it will
-start the github service.
+If you want to use the admin service for starting/stopping/restarting
+the bot and the services you'll also need to install Python_,
+virtualenv_, and tmux_. Create a virtualenv and install Fabric_ in
+it (if you have virtualenvwrapper installed already feel free to use
+it of course)::
+
+    virtualenv zib
+    source zib/bin/activate
+    pip install fabric
+
+Once you've done that it is on to configuring the bot. All of the
+configs have examples provided in the form of .dist files. The first
+one that will concern us is config.js in the root.
+
+    cp config.js.dist config.js
+
+Edit config.js and customize it to what you need.
+
+Once you've done that, if you setup Python/virtualenv/tmux you can
+run::
+
+    fab zenircbot start
+
+Otherwise you'll just run::
+
+    node bot.js
+
+Viola, your bot should connect, join the channels in the config and go
+forth on its merry way. It wont do anything interesting until you
+start up services. You can find information on starting up :doc:`services`.
+
+.. _JavaScript: http://en.wikipedia.org/wiki/JavaScript
+.. _node: http://nodejs.org
+.. _Python: http://python.org
+.. _npm: http://npmjs.org
+.. _Redis: http://redis.io
+.. _virtualenv: http://pypi.python.org/pypi/virtualenv
+.. _tmux: http://tmux.sourceforge.net/
+.. _Fabric: http://fabfile.org/

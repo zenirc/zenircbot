@@ -25,8 +25,8 @@ irc.socket.on('connect', function() {
 
     irc.on(/^:(.*?)!.*?PRIVMSG (#?\w+) :(.*)$/, function(info) {
 	message = {
-	    channel: info[2],
 	    sender: info[1],
+	    channel: info[2],
 	    message: info[3]
 	};
 	redis.publish('in', JSON.stringify(message));

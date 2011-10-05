@@ -15,6 +15,7 @@ client.publish('out', JSON.stringify({
 app.use(express.bodyParser());
 
 app.post('/:app', function(req, res) {
+    console.log(req.params['app']);
     message = {
 	app: req.params['app'],
 	body: req.body

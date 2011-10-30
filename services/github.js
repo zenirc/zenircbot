@@ -11,11 +11,11 @@ pub.publish('out', JSON.stringify({
 
 sub.subscribe('web_in')
 sub.on('message', function(channel,message){
-    message = JSON.parse(message)
+    message = JSON.parse(message);
     if (message.app != 'github') {
 	return
     }
-    github_json = JSON.parse(message.body.payload)
+    github_json = JSON.parse(message.body.payload);
     
     branch = github_json.ref.substr(11);
     repo = github_json.repository.name;

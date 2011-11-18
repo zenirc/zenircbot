@@ -1,17 +1,19 @@
 var redis_lib = require('redis');
 var pub = redis_lib.createClient();
 var sub = redis_lib.createClient();
-var ticket = /^ls$/;
+var ls = /^ls$/;
 var exec = require("child_process").exec;
 
 sub.subscribe('in');
 sub.on('message', function(channel, message){
     msg = JSON.parse(message)
-    if (ticket.test(msg.message)) {
-	reply = {
-	    channel: msg.channel,
-	    message: msg.sender + ': http://is.gd/afolif',
+    if (msg.version == 1 && msg.type == 'privmsg') {
+	if (ls.test(msg.data.message)) {
+	    reply = {
+		channel: msg.data.channel,
+		message: msg.data.sender + ': http://is.gd/afolif',
+	    }
+	    pub.publish('out', JSON.stringify(reply));
 	}
-	pub.publish('out', JSON.stringify(reply));
     }
 });

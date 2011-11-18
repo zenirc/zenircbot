@@ -6,11 +6,13 @@ var ticket = /^!email$/;
 sub.subscribe('in');
 sub.on('message', function(channel, message){
     msg = JSON.parse(message)
-    if (ticket.test(msg.message)) {
-	reply = {
-	    channel: msg.channel,
-	    message: msg.sender + ': http://is.gd/ehurul',
+    if (msg.version == 1 && msg.type == 'privmsg') {
+	if (ticket.test(msg.data.message)) {
+	    reply = {
+		channel: msg.data.channel,
+		message: msg.data.sender + ': http://is.gd/ehurul',
+	    }
+	    pub.publish('out', JSON.stringify(reply));
 	}
-	pub.publish('out', JSON.stringify(reply));
     }
 });

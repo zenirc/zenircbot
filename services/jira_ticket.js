@@ -7,13 +7,15 @@ var config = require('./jira_ticket_config')
 sub.subscribe('in');
 sub.on('message', function(channel, message){
     msg = JSON.parse(message)
-    if (msg.channel == config.channel && ticket.test(msg.message)) {
-	result = ticket.exec(msg.message)
-	console.log(result[1])
-	reply = {
-	    channel: msg.channel,
-	    message: config.jira_url + 'browse/' + result[1],
+    if (msg.version == 1 && msg.type == 'privmsg') {
+	if (msg.data.channel == config.channel && ticket.test(msg.data.message)) {
+	    result = ticket.exec(msg.data.message)
+	    console.log(result[1])
+	    reply = {
+		channel: msg.data.channel,
+		message: config.jira_url + 'browse/' + result[1],
+	    }
+	    pub.publish('out', JSON.stringify(reply));
 	}
-	pub.publish('out', JSON.stringify(reply));
     }
 });

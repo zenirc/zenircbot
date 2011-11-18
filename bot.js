@@ -9,9 +9,13 @@ var bot = new irc.Client(config.server, config.nick, config.options);
 bot.addListener('message', function(nick, to, text, message) {
     console.log(nick + ' said ' + text + ' to ' + to);
     msg = {
-	sender: nick,
-	channel: to,
-	message: text,
+	version: 1,
+	type: 'privmsg',
+	data: {
+	    sender: nick,
+	    channel: to,
+	    message: text,
+	},
     };
     pub.publish('in', JSON.stringify(msg));
 });

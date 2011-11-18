@@ -1,93 +1,24 @@
-var net = require('net'),
-irc = {},
-config = require('./config'),
-redis_lib = require('redis'),
-redis = redis_lib.createClient();
+var config = require('./config');
+var redis_lib = require('redis');
+var pub = redis_lib.createClient();
+var sub = redis_lib.createClient();
+var irc = require('irc');
 
-irc.socket = new net.Socket();
+var bot = new irc.Client(config.server, config.nick, config.options);
 
-irc.socket.on('data', function(data) {
-    data = data.split('\n');
-    for (var i = 0; i < data.length; i++) {
-	console.log('RECV -', data[i]);
-	if (data !== '') {
-	    irc.handle(data[i].slice(0, -1));
-	}
-    }
+bot.addListener('message', function(nick, to, text, message) {
+    console.log(nick + ' said ' + text + ' to ' + to);
+    msg = {
+	sender: nick,
+	channel: to,
+	message: text,
+    };
+    pub.publish('in', JSON.stringify(msg));
 });
 
-irc.socket.on('connect', function() {
-    console.log('Established connection...');
-
-    irc.on(/^PING :(.+)$/i, function(info) {
-	irc.raw('PONG :' + info[1]);
-    });
-
-    irc.on(/^:(.*?)!.*?PRIVMSG (#?\w+) :(.*)$/, function(info) {
-	message = {
-	    sender: info[1],
-	    channel: info[2],
-	    message: info[3]
-	};
-	redis.publish('in', JSON.stringify(message));
-    });
-
-    irc.input = redis_lib.createClient();
-    irc.input.subscribe('out');
-    irc.input.on('message', function(channel, message) {
-	msg = JSON.parse(message);
-	irc.message(msg.channel, msg.message);
-    });
-
-    setTimeout(function() {
-	irc.raw('NICK ' + config.user.nick);
-	irc.raw('USER ' + config.user.user + ' 8 * :' + config.user.real);
-	setTimeout(function() {
-	    for (var i in config.chans) {
-		irc.join(i, config.chans[i]);
-	    }
-	}, 2000);
-    }, 1000);
+sub.subscribe('out')
+sub.on('message', function(channel, message) {
+    message = JSON.parse(message);
+    console.log('saying ' + message.message + ' to ' + message.channel);
+    bot.say(message.channel, message.message);
 });
-
-irc.socket.setEncoding('ascii');
-irc.socket.setNoDelay();
-irc.socket.connect(config.server.port, config.server.addr);
-
-//handles incoming messages
-irc.handle = function(data) {
-    var i, info;
-    for (i = 0; i < irc.listeners.length; i++) {
-	info = irc.listeners[i][0].exec(data);
-	if (info) {
-	    irc.listeners[i][1](info, data);
-	    if (irc.listeners[i][2]) {
-		irc.listeners.splice(i, 1);
-	    }
-	}
-    }
-};
-
-irc.join = function(channel, password) {
-    irc.raw('JOIN #' + channel + ' ' + password);
-};
-
-irc.message = function(channel, message) {
-    console.log('MSG - ' + channel + ' : ' + message);
-    irc.raw('PRIVMSG ' + channel + ' :' + message);
-};
-
-irc.listeners = [];
-irc.on = function(data, callback) {
-    irc.listeners.push([data, callback, false]);
-};
-
-irc.on_once = function(data, callback) {
-    irc.listeners.push([data, callback, true]);
-};
-
-irc.raw = function(data) {
-    irc.socket.write(data + '\n', 'ascii', function() {
-	console.log('SENT -', data);
-    });
-};

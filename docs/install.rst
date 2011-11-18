@@ -17,6 +17,10 @@ redis::
 
     npm install redis
 
+You'll also need node-irc_ which is installable via npm as well::
+
+    npm install irc
+
 If you want to use the admin service for starting/stopping/restarting
 the bot and the services you'll also need to install Python_,
 virtualenv_, and tmux_. Create a virtualenv and install Fabric_ in
@@ -53,6 +57,7 @@ start up services. You can find information on starting up :doc:`services`.
 .. _Python: http://python.org
 .. _npm: http://npmjs.org
 .. _Redis: http://redis.io
+.. _node-irc: https://github.com/martynsmith/node-irc
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
 .. _tmux: http://tmux.sourceforge.net/
 .. _Fabric: http://fabfile.org/

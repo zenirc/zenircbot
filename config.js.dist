@@ -1,18 +1,18 @@
-config = {
-    user: {
-	nick: '',
-	user: '',
-	real: 'ZenIRCBot',
-	pass: ''
+module.exports = {
+    server: 'irc.freenode.net',
+    nick: 'ZenIRCBot',
+    options: {
+	userName: 'zenircbot',
+	realName: 'ZenIRCBot',
+	port: 6667,
+	debug: false,
+	showErrors: false,
+	autoRejoin: true,
+	autoConnect: true,
+	channels: ['#pdxbots'],
+	secure: false,
+	selfSigned: false,
+	floodProtection: true,
+	stripColors: false,
     },
-    server: {
-	addr: 'irc.freenode.net',
-	port: 6667
-    },
-    chans: {
-	channelname: 'password' // set password to '' if there is no password
-    },
-    admin: '',
 };
-
-module.exports = config;

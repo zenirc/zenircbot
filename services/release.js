@@ -1,13 +1,10 @@
 var redis_lib = require('redis');
-var pub = redis_lib.createClient();
 var sub = redis_lib.createClient();
-var color = require('../lib/colors');
+var api = require('../lib/api');
 var release_config = require('./release_config');
 
-pub.publish('out', JSON.stringify({
-    channel: release_config.channel,
-    message: 'release broadcaster online',
-}));
+api.send_message(release_config.channel,
+		 'release broadcaster online');
 
 sub.subscribe('web_in')
 sub.on('message', function(channel,message){
@@ -18,9 +15,7 @@ sub.on('message', function(channel,message){
     release_json = JSON.parse(message.body.payload)
 
 
-    reply = {
-	channel: release_config.channel,
-	message: 'release of ' + release_json.branch + ' ' + release_json.status + ' on ' + release_json.hostname,
+    api.send_message(release_config.channel, 
+		     'release of ' + release_json.branch + ' ' + release_json.status + ' on ' + release_json.hostname)
     }
-    pub.publish('out', JSON.stringify(reply));
 });

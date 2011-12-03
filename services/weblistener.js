@@ -6,10 +6,9 @@ var color = require('../lib/colors');
 var admin_config = require('./admin_config');
 var weblistener_config = require('./weblistener_config');
 
-client.publish('out', JSON.stringify({
-    channel: admin_config.channel,
-    message: 'web listener online',
-}));
+api.send_message(admin_config.channel,
+		 'web listener online');
+
 
 
 app.use(express.bodyParser());

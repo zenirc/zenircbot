@@ -20,9 +20,26 @@ bot.addListener('message', function(nick, to, text, message) {
     pub.publish('in', JSON.stringify(msg));
 });
 
+var output_handlers = {
+    1: output_version_1,
+};
+
 sub.subscribe('out')
 sub.on('message', function(channel, message) {
-    message = JSON.parse(message);
-    console.log('saying ' + message.message + ' to ' + message.channel);
-    bot.say(message.channel, message.message);
+    msg = JSON.parse(message);
+    output_handlers[msg.version](msg)
 });
+
+function output_version_1(message) {
+    console.log('output_version_1');
+    switch (message.type) {
+    case 'privmsg':
+	console.log('  privmsg');
+	bot.say(message.data.to, message.data.message);
+	break;
+    case 'raw':
+	console.log('  raw');
+	bot.send(message.command);
+	break;
+    }
+}

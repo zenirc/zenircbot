@@ -1,13 +1,11 @@
 var redis_lib = require('redis');
-var pub = redis_lib.createClient();
 var sub = redis_lib.createClient();
+var api = require('../lib/api')
 var color = require('../lib/colors');
 var github_config = require('./github_config');
 
-pub.publish('out', JSON.stringify({
-    channel: github_config.channel,
-    message: 'github post commit hook broadcaster online',
-}));
+api.send_message(github_config.channel,
+		 'github post commit hook broadcaster online');
 
 sub.subscribe('web_in')
 sub.on('message', function(channel,message){
@@ -30,11 +28,7 @@ sub.on('message', function(channel,message){
 	    name_str = '';
 	}
 	message = repo + ': ' + commit.id.substr(0,7) + ' *' + color.green + branch + color.reset +'* ' + commit.message + name_str;
-	reply = {
-	    channel: github_config.channel,
-	    message: message,
-	};
+	api.send_message(github_config.channel, message);
 	console.log(branch + ': ' + commit.author.username);
-	pub.publish('out', JSON.stringify(reply));
     }
 });

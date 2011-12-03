@@ -47,16 +47,44 @@ envelope::
         }
     }
 
-The possible in message types and their data objects are as follows:
+In
+~~~
+
+The possible ``in`` messages.
 
 .. js:data:: 'privmsg'
 
-data::
-    {
-        from: '',
-        channel: '',
-        message: '',
-    }
+    Sent whenever a privmsg comes in on IRC::
+
+        data: {
+            from: '',
+	    channel: '',
+	    message: '',
+    	}
+
+Out
+~~~
+
+The possible ``out`` messages.
+
+.. js:data:: 'privmsg'
+
+    Used to have the bot say something::
+
+        data: {
+	    to: '',
+	    message: '',
+	}
+
+
+.. js:data:: 'raw'
+
+    Used to have the bot send a raw string to the IRC server::
+
+        data: {
+	    command: '',
+	}
+
 
 
 .. note::

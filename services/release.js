@@ -16,6 +16,6 @@ sub.on('message', function(channel,message){
 
 
     api.send_privmsg(release_config.channel, 
-		     'release of ' + release_json.branch + ' ' + release_json.status + ' on ' + release_json.hostname)
-    }
+		     'release of ' + release_json.branch + ' ' + release_json.status + ' on ' + release_json.hostname);
+
 });

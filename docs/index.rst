@@ -8,6 +8,7 @@ Contents:
 
    install
    services
+   contributing
 
 Indices and tables
 ==================

@@ -85,14 +85,10 @@ The possible ``out`` messages.
 	    command: '',
 	}
 
-
-
 .. note::
     If you port ``lib/api`` to another langauge, please send a
     pull request with it, I'll gladly add it and maintain it to stay
     up to date with any protocol changes.
-
-
 
 - admin.js
 - github.js

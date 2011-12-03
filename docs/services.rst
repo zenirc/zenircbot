@@ -47,8 +47,8 @@ envelope::
         }
     }
 
-In
-~~~
+In messages
+~~~~~~~~~~~
 
 The possible ``in`` messages.
 
@@ -62,8 +62,8 @@ The possible ``in`` messages.
 	    message: '',
     	}
 
-Out
-~~~
+Out messages
+~~~~~~~~~~~~
 
 The possible ``out`` messages.
 

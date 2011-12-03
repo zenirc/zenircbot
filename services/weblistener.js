@@ -6,7 +6,7 @@ var api = require('./lib/api');
 var admin_config = require('./admin_config');
 var weblistener_config = require('./weblistener_config');
 
-api.send_message(admin_config.channel,
+api.send_privmsg(admin_config.channel,
 		 'web listener online');
 
 

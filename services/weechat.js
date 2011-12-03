@@ -10,7 +10,7 @@ sub.on('message', function(channel, message){
 	if (weechat.test(msg.data.message)) {
 	    result = weechat.exec(msg.data.message)
 	    console.log(result[1])
-	    api.send_message(msg.data.channel,
+	    api.send_privmsg(msg.data.channel,
 			     msg.data.sender + ': Use weechat.');
 	}
     }

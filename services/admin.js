@@ -30,16 +30,16 @@ sub.on('message', function(channel, message){
 });
 
 function restart() {
-    api.send_message(config.channel, 'brb!');
+    api.send_privmsg(config.channel, 'brb!');
     exec("fab zenbot restart", puts);
 }
 
 function restart_service(service) {
-    api.send_message(config.channel, 'restarting ' + service);
+    api.send_privmsg(config.channel, 'restarting ' + service);
     exec("fab zenbot service:" + service, puts);
 }
 
 function git_pull() {
-    api.send_message(config.channel, 'pulling down new code');
+    api.send_privmsg(config.channel, 'pulling down new code');
     exec("git pull", puts);
 }

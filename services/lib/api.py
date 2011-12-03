@@ -2,7 +2,7 @@ from redis import Redis
 import json
 
 
-def send_message(to, message):
+def send_privmsg(to, message):
     Redis().publish('out',
                     json.dumps({
                 'version': 1,

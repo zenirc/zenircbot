@@ -25,7 +25,7 @@ while True:
         message = ''.join(bs.findAll(text=True))
         if not ('created' in message or 'resolved' in message or 'reopened' in message):
             continue
-            api.send_message(jira_feed_config.channel,
+            api.send_privmsg(jira_feed_config.channel,
                              'JIRA - %s' % re.sub('(\w\w-\d+)',
                                                   '%sbrowse/\\1'%jira_feed_config.url,
                                                   message))

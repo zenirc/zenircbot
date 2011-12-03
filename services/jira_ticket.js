@@ -11,7 +11,7 @@ sub.on('message', function(channel, message){
 	if (msg.data.channel == config.channel && ticket.test(msg.data.message)) {
 	    result = ticket.exec(msg.data.message)
 	    console.log(result[1])
-	    api.send_message(msg.data.channel,
+	    api.send_privmsg(msg.data.channel,
 			     config.jira_url + 'browse/' + result[1]);
 	}
     }

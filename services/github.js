@@ -4,7 +4,7 @@ var api = require('./lib/api')
 var color = require('./lib/colors');
 var github_config = require('./github_config');
 
-api.send_message(github_config.channel,
+api.send_privmsg(github_config.channel,
 		 'github post commit hook broadcaster online');
 
 sub.subscribe('web_in')
@@ -28,7 +28,7 @@ sub.on('message', function(channel,message){
 	    name_str = '';
 	}
 	message = repo + ': ' + commit.id.substr(0,7) + ' *' + color.green + branch + color.reset +'* ' + commit.message + name_str;
-	api.send_message(github_config.channel, message);
+	api.send_privmsg(github_config.channel, message);
 	console.log(branch + ': ' + commit.author.username);
     }
 });

@@ -4,7 +4,7 @@ from time import sleep
 from datetime import datetime, timedelta
 import re
 import jira_feed_config
-from ..lib import api
+from lib import api
 
 
 latest = None

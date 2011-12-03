@@ -2,7 +2,7 @@ var express = require('express');
 var app = express.createServer();
 var redis = require('redis');
 var client = redis.createClient();
-var color = require('../lib/colors');
+var api = require('./lib/api');
 var admin_config = require('./admin_config');
 var weblistener_config = require('./weblistener_config');
 

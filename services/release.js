@@ -1,6 +1,6 @@
 var redis_lib = require('redis');
 var sub = redis_lib.createClient();
-var api = require('../lib/api');
+var api = require('./lib/api');
 var release_config = require('./release_config');
 
 api.send_message(release_config.channel,

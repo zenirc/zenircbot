@@ -1,5 +1,5 @@
 var redis_lib = require('redis');
-var api = require('../lib/api');
+var api = require('./lib/api');
 var sub = redis_lib.createClient();
 var weechat = /irssi/i;
 

@@ -1,6 +1,6 @@
 var redis_lib = require('redis');
 var sub = redis_lib.createClient();
-var api = require('../lib/api');
+var api = require('./lib/api');
 var ls = /^ls$/;
 var exec = require("child_process").exec;
 

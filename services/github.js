@@ -1,7 +1,7 @@
 var redis_lib = require('redis');
 var sub = redis_lib.createClient();
-var api = require('../lib/api')
-var color = require('../lib/colors');
+var api = require('./lib/api')
+var color = require('./lib/colors');
 var github_config = require('./github_config');
 
 api.send_message(github_config.channel,

@@ -1,6 +1,6 @@
 var redis_lib = require('redis');
 var sub = redis_lib.createClient();
-var api = require('../lib/api');
+var api = require('./lib/api');
 var ticket = /(?:\s|^)([a-zA-Z][a-zA-Z]-\d+)/;
 var config = require('./jira_ticket_config')
 

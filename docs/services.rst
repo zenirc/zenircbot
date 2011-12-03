@@ -51,12 +51,12 @@ The possible in message types and their data objects are as follows:
 
 .. js:data:: 'privmsg'
 
-    data::
-        {
-            from: '',
-            channel: '',
-            message: '',
-        }
+data::
+    {
+        from: '',
+        channel: '',
+        message: '',
+    }
 
 
 .. note::

@@ -30,26 +30,41 @@ Writing Your Own
 ----------------
 
 When writing your own service, the easiest way to do so is to place it
-in the ``services`` directory. This way you can use `admin.js`_ to
+in the ``services`` directory. This way you can use admin.js_ to
 start, restart, and stop your service. Also you get access to
 ``lib/api`` which currently has nodejs and python versions. The things
 in ``lib/api`` are mostly convenience functions. The details of what
 is in there will be discussed later.
 
-First lets look at the low level protocol. Messages all have the same envelope::
+First lets look at the low level protocol. Messages all have the same
+envelope::
 
     {
         version: 1,
         type: '',
         data: {
-	    ...
+            ...
         }
     }
 
-.. note:: 
+The possible in message types and their data objects are as follows:
+
+.. js:data:: 'privmsg'
+
+    data::
+        {
+            from: '',
+            channel: '',
+            message: '',
+        }
+
+
+.. note::
     If you port ``lib/api`` to another langauge, please send a
     pull request with it, I'll gladly add it and maintain it to stay
     up to date with any protocol changes.
+
+
 
 - admin.js
 - github.js
@@ -57,5 +72,3 @@ First lets look at the low level protocol. Messages all have the same envelope::
 - jira_ticket.js
 - release.js
 - weblistener.js
-
-

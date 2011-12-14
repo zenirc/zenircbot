@@ -8,6 +8,12 @@ To start with, the bot is written in JavaScript_ using the Node_
 platform. Two of the services are written in or rely on Python_ the
 rest are written in JavaScript.
 
+If you are on Ubuntu, you should probably build and install Node_ and
+npm_ yourself. The packages that provide binaries of each of these
+names are not the things that you want. apt-get install node gives you
+an amateur packet radio program and npm is provided by a magnetic
+resonence imaging program. Neither of which are what ZenIRCBot needs.
+
 Getting the bot running
 -----------------------
 

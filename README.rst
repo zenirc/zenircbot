@@ -1,9 +1,15 @@
+Repo
+****
 The official repo is now https://github.com/wraithan/zenircbot
 
-This bot is under heavy dev at the moment. There is some (limited at
-this time) documentation available on `Read The Docs`_. There are a
-number of issues_ that will need to be solved before we consider this
-bot to be 1.0 but that being said it is working for our company.
+Resources
+*********
 
-.. _`Read The Docs`: http://zenircbot.readthedocs.org/en/latest/
-.. _issues: https://github.com/wraithan/zenircbot/issues?milestone=1&state=open
+Docs on `Read The Docs`_
+Issues on `GitHub Issues`_
+Support in the `#pdxbots`_ channel on Freenode
+
+
+.. _`Read The Docs`: http://zenircbot.readthedocs.org/
+.. _`GitHub Issues`: https://github.com/wraithan/zenircbot/issues?milestone=1&state=open
+.. _`#pdxbots`: irc://chat.freenode.net/#pdxbots

@@ -7,8 +7,9 @@ Contents:
    :maxdepth: 2
 
    install
-   services
+   services_devel
    contributing
+   services
 
 Indices and tables
 ==================

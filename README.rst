@@ -1,3 +1,5 @@
+The official repo is now https://github.com/wraithan/zenircbot
+
 This bot is under heavy dev at the moment. There is some (limited at
 this time) documentation available on `Read The Docs`_. There are a
 number of issues_ that will need to be solved before we consider this

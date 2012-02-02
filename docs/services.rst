@@ -4,11 +4,14 @@ Services
 This is the documentation for the individual services that come with
 ZenIRCBot. 
 
+
 Admin
 -----
-
+.. _admin:
 This is a service for doing basic things like starting and stopping
 other services or restarting the bot. It is written in `Node.js`_.
+
+.. _`Node.js`: http://nodejs.com/
 
 Commands
 ~~~~~~~~
@@ -24,6 +27,8 @@ pull
 
 Github
 ------
+.. _github:
+This service relies on the 
 
 
 Jira Feed
@@ -40,3 +45,5 @@ Release
 
 Weblistener
 -----------
+.. _weblistener:
+This is a service that passes along post data to the web_in channel in redis.

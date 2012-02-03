@@ -7,7 +7,9 @@ ZenIRCBot.
 
 Admin
 -----
+
 .. _admin:
+
 This is a service for doing basic things like starting and stopping
 other services or restarting the bot. It is written in `Node.js`_.
 
@@ -27,7 +29,9 @@ pull
 
 Github
 ------
+
 .. _github:
+
 This service relies on the weblistener_ service to pass along the post
 body with the service set in the JSON envelope.
 
@@ -46,6 +50,8 @@ Release
 
 Weblistener
 -----------
+
 .. _weblistener:
+
 This is a service that passes along post data to the web_in channel in
 redis.

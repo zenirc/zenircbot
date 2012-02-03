@@ -13,8 +13,6 @@ Admin
 This is a service for doing basic things like starting and stopping
 other services or restarting the bot. It is written in `Node.js`_.
 
-.. _`Node.js`: http://nodejs.com/
-
 Commands
 ~~~~~~~~
 restart
@@ -32,7 +30,7 @@ Github
 .. _github:
 
 This service relies on the weblistener_ service to pass along the post
-body with the service set in the JSON envelope.
+body with the service set in the JSON envelope. It is written in `Node.js`_
 
 Jira Feed
 ---------
@@ -41,7 +39,7 @@ Jira Feed
 
 This service does a check on the specified JIRA issue RSS feed and
 posts to the channel whenever an issue is created, closed, or
-reopened.
+reopened. It is written in `Python`_.
 
 Jira Ticket
 -----------
@@ -51,7 +49,7 @@ Jira Ticket
 This service watches for something formated with 2 letters, a dash,
 then numbers. For example BH-1234, it takes that, and appends it to
 the specified JIRA URL and says it back to the channel so you get
-links to issues automatically.
+links to issues automatically. It is written in `Node.js`_.
 
 Ls
 --
@@ -60,7 +58,14 @@ Ls
 
 This service was started as a basic troll and has grown since then, in
 a future release it is very likely that it will be renamed and made
-more modular as it keeps getting more trolling stuff added to it.
+more modular as it keeps getting more trolling stuff added to it. It
+is written in `Node.js`_.
+
+Commands
+~~~~~~~~
+
+ls
+    Responds with a funny picture.
 
 Release
 -------
@@ -85,15 +90,15 @@ then emit something like::
 
     release of feature/cool_stuff started on staging-04
 
-To the channel specified in the config.
+To the channel specified in the config. It is written in `Node.js`_.
 
 Weblistener
 -----------
 
 .. _weblistener:
 
-This is a service that passes along post data to the web_in channel in
-redis.
+This is a service that passes along post data to the `web_in` channel in
+redis. It is written in `Node.js`_.
 
 Weechat
 -------
@@ -101,4 +106,7 @@ Weechat
 .. _weechat:
 
 This service will be folded into the ls_ service in the near
-future. It is yet another trolling service.
+future. It is yet another trolling service. It is written in `Node.js`_.
+
+.. _`Node.js`: http://nodejs.com/
+.. _`Python`: http://python.org/

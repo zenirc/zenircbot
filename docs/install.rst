@@ -105,3 +105,4 @@ information on starting up :doc:`services`.
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
 .. _tmux: http://tmux.sourceforge.net/
 .. _Fabric: http://fabfile.org/
+.. _irckit: https://github.com/coleifer/irc

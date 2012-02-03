@@ -61,6 +61,12 @@ start up services. You can find information on starting up :doc:`services`.
 Getting the python bot running
 ------------------------------
 
+..warning::
+
+    This version of the bot is less battle tested than the node
+    version. This doesn't mean you shouldn't use it, just know that
+    these instructions may change in the near future.
+
 To start with you'll need to install Python_, virtualenv_ and Redis_
 (all three provided by your OS package manager). Once you have those
 you'll need to use pip to install the python library for redis as well

@@ -14,8 +14,8 @@ names are not the things that you want. apt-get install node gives you
 an amateur packet radio program and npm is provided by a magnetic
 resonence imaging program. Neither of which are what ZenIRCBot needs.
 
-Getting the bot running
------------------------
+Getting the node.js bot running
+-------------------------------
 
 To start with you'll need to install Node_, npm_ and Redis_. Once you
 have those you'll need to use npm to install the node library for
@@ -57,6 +57,44 @@ Otherwise you'll just run::
 Viola, your bot should connect, join the channels in the config and go
 forth on its merry way. It wont do anything interesting until you
 start up services. You can find information on starting up :doc:`services`.
+
+Getting the python bot running
+------------------------------
+
+To start with you'll need to install Python_, virtualenv_ and Redis_
+(all three provided by your OS package manager). Once you have those
+you'll need to use pip to install the python library for redis as well
+as using virtualenv to keep your libraries you installed for ZenIRCBot
+(if you have virtualenvwrapper installed already feel free to use it
+of course)::
+
+    virtualenv zib
+    source zib/bin/activate
+    pip install redis
+
+You'll also need irckit_ which is installable via pip as well::
+
+    pip install irckit
+
+If you want to use the admin service for starting/stopping/restarting
+the bot and the services you'll need to install Fabric_ and tmux_
+(provided by your OS package manager) in it::
+
+    pip install fabric
+
+In order to configure the bot at this time you have to edit the
+`bot.py` and change the values at the bottom of the file. This will be
+changed in the near future when the config files are all refactored
+into pure JSON files.
+
+Once you're done configuring the bot::
+
+    python bot.py
+
+Viola, your bot should connect, and go forth on its merry way. It wont
+do anything interesting until you start up services. You can find
+information on starting up :doc:`services`.
+
 
 .. _JavaScript: http://en.wikipedia.org/wiki/JavaScript
 .. _node: http://nodejs.org

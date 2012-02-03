@@ -61,7 +61,7 @@ start up services. You can find information on starting up :doc:`services`.
 Getting the python bot running
 ------------------------------
 
-..warning::
+.. warning::
 
     This version of the bot is less battle tested than the node
     version. This doesn't mean you shouldn't use it, just know that

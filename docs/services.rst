@@ -98,7 +98,15 @@ Weblistener
 .. _weblistener:
 
 This is a service that passes along post data to the `web_in` channel in
-redis. It is written in `Node.js`_.
+redis in the format of::
+
+    body: {
+        payload: "JSON String",
+        app: 'whatever-path-on-the-url-posted-to',
+    }
+
+Where payload is the POST body and app is
+http://example.com/whatever-path-on-the-url-posted-to for example.
 
 Weechat
 -------

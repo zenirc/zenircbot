@@ -35,7 +35,6 @@ Github
 This service relies on the weblistener_ service to pass along the post
 body with the service set in the JSON envelope.
 
-
 Jira Feed
 ---------
 

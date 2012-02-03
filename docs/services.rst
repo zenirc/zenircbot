@@ -26,7 +26,6 @@ restart <service name>
 pull
     This will pull down new code.
 
-
 Github
 ------
 
@@ -44,7 +43,6 @@ This service does a check on the specified JIRA issue RSS feed and
 posts to the channel whenever an issue is created, closed, or
 reopened.
 
-
 Jira Ticket
 -----------
 
@@ -54,6 +52,15 @@ This service watches for something formated with 2 letters, a dash,
 then numbers. For example BH-1234, it takes that, and appends it to
 the specified JIRA URL and says it back to the channel so you get
 links to issues automatically.
+
+Ls
+--
+
+.. _ls:
+
+This service was started as a basic troll and has grown since then, in
+a future release it is very likely that it will be renamed and made
+more modular as it keeps getting more trolling stuff added to it.
 
 Release
 -------
@@ -87,3 +94,11 @@ Weblistener
 
 This is a service that passes along post data to the web_in channel in
 redis.
+
+Weechat
+-------
+
+.. _weechat:
+
+This service will be folded into the ls_ service in the near
+future. It is yet another trolling service.

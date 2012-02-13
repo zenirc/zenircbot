@@ -1,5 +1,6 @@
 *config.js
 *config.py
+*.json
 node_modules
 *.pyc
 _build

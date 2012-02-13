@@ -1,3 +1,4 @@
+var fs = require('fs');
 var redis_lib = require('redis');
 var pub = redis_lib.createClient();
 
@@ -11,5 +12,8 @@ module.exports = {
 		message: message
 	    },
 	}));
-    }
+    },
+    load_config: function(name) { 
+	return JSON.parse(fs.readFileSync(name, 'utf8'));
+    },
 }

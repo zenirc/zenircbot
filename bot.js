@@ -1,10 +1,28 @@
-var config = require('./config');
 var redis_lib = require('redis');
 var pub = redis_lib.createClient();
 var sub = redis_lib.createClient();
 var irc = require('irc');
+var api = require('./services/lib/api');
+var config = api.load_config('bot.json');
 
-var bot = new irc.Client(config.server, config.nick, config.options);
+function server_options(config) {
+    return {
+	userName: config.servers[0].userName,
+	realName: config.servers[0].realName,
+	port: config.servers[0].port,
+	autoRejoin: config.servers[0].autoRejoin,
+	autoConnect: config.servers[0].autoConnect,
+	channels: config.servers[0].channels,
+	secure: config.servers[0].secure,
+	selfSigned: config.servers[0].selfSigned,
+	debug: config.options.debug,
+	floodProtection: config.options.floodProtection,
+	showErrors: config.options.debug,
+	stripColors: config.options.stripColors,
+    }
+}
+
+var bot = new irc.Client(config.servers[0].hostname, config.servers[0].nick, server_options(config));
 
 bot.addListener('message', function(nick, to, text, message) {
     console.log(nick + ' said ' + text + ' to ' + to);

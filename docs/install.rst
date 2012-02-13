@@ -4,15 +4,33 @@ Install
 Installing ZenIRCBot will one day be much simpler, but for now there
 are a number of steps to it.
 
-To start with, the bot is written in JavaScript_ using the Node_
-platform. Two of the services are written in or rely on Python_ the
-rest are written in JavaScript.
+To start with, the bot is written in both JavaScript_ using the Node_
+platform, and there is a verion that is written in Python_. Two of the
+services are written in or rely on Python_ the rest are written in
+JavaScript.
 
 If you are on Ubuntu, you should probably build and install Node_ and
 npm_ yourself. The packages that provide binaries of each of these
 names are not the things that you want. apt-get install node gives you
 an amateur packet radio program and npm is provided by a magnetic
 resonence imaging program. Neither of which are what ZenIRCBot needs.
+
+Configuring the bot
+-------------------
+
+The config for the bot can be found in `bot.json` which is a JSON file
+that both the Node.js and Python bots use.
+
+If you don't have a `bot.json`, copy `bot.json.dist` into its place
+like so::
+
+    $ cp bot.json{.dist,}
+
+Then modify it and fill in the values with your own.
+
+.. note:: Despite the option being `servers` currently ZenIRCBot only
+          supports 1 server. It is named as such for future
+          compatibility
 
 Getting the node.js bot running
 -------------------------------
@@ -21,11 +39,11 @@ To start with you'll need to install Node_, npm_ and Redis_. Once you
 have those you'll need to use npm to install the node library for
 redis::
 
-    npm install redis
+    $ npm install redis
 
 You'll also need node-irc_ which is installable via npm as well::
 
-    npm install irc
+    $ npm install irc
 
 If you want to use the admin service for starting/stopping/restarting
 the bot and the services you'll also need to install Python_,
@@ -33,26 +51,18 @@ virtualenv_, and tmux_. Create a virtualenv and install Fabric_ in
 it (if you have virtualenvwrapper installed already feel free to use
 it of course)::
 
-    virtualenv zib
-    source zib/bin/activate
-    pip install fabric
-
-Once you've done that it is on to configuring the bot. All of the
-configs have examples provided in the form of .dist files. The first
-one that will concern us is config.js in the root::
-
-    cp config.js.dist config.js
-
-Edit config.js and customize it to what you need.
+    $ virtualenv zib
+    $ source zib/bin/activate
+    $ pip install fabric
 
 Once you've done that, if you setup Python/virtualenv/tmux you can
 run::
 
-    fab zenircbot start
+    $ fab zenircbot start
 
 Otherwise you'll just run::
 
-    node bot.js
+    $ node bot.js
 
 Viola, your bot should connect, join the channels in the config and go
 forth on its merry way. It wont do anything interesting until you
@@ -74,19 +84,19 @@ as using virtualenv to keep your libraries you installed for ZenIRCBot
 (if you have virtualenvwrapper installed already feel free to use it
 of course)::
 
-    virtualenv zib
-    source zib/bin/activate
-    pip install redis
+    $ virtualenv zib
+    $ source zib/bin/activate
+    $ pip install redis
 
 You'll also need irckit_ which is installable via pip as well::
 
-    pip install irckit
+    $ pip install irckit
 
 If you want to use the admin service for starting/stopping/restarting
 the bot and the services you'll need to install Fabric_ and tmux_
 (provided by your OS package manager) in it::
 
-    pip install fabric
+    $ pip install fabric
 
 In order to configure the bot at this time you have to edit the
 `bot.py` and change the values at the bottom of the file. This will be
@@ -95,7 +105,7 @@ into pure JSON files.
 
 Once you're done configuring the bot::
 
-    python bot.py
+    $ python bot.py
 
 Viola, your bot should connect, and go forth on its merry way. It wont
 do anything interesting until you start up services. You can find

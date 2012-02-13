@@ -1,0 +1,22 @@
+{
+    "servers": [
+	{
+	    "name": "freenode",
+	    "hostname": "irc.freenode.net",
+	    "nick": "ZenIRCBot",
+	    "userName": "zenircbot",
+	    "realName": "ZenIRCBot",
+	    "port": 6667,
+	    "autoRejoin": true,
+	    "autoConnect": true,
+	    "channels": ["#pdxbots"],
+	    "secure": false,
+	    "selfSigned": false
+	}
+    ],
+    "options": {
+	"debug": false,
+	"floodProtection": true,
+	"stripColors": false
+    }
+}

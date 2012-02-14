@@ -12,3 +12,7 @@ def send_privmsg(to, message):
                     'message': message,
                     }
                 }))
+
+def load_config(name):
+    with open(name) as f:
+        return json.loads(f.read())

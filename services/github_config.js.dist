@@ -1,5 +1,0 @@
-var config = {
-    channel: '',
-};
-
-module.exports = config;

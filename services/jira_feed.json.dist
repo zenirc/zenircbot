@@ -1,0 +1,6 @@
+{
+    "url": "https://jira.example.com/"
+    "feed_url": "https://username:password@jira.example.com/plugins/servlet/streams"
+    "channel": "#channel"
+    "poll_rate": 10
+}

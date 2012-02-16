@@ -1,12 +1,13 @@
+from datetime import datetime, timedelta
+from time import sleep
+import re
+
 from BeautifulSoup import BeautifulSoup
 from feedparser import parse
-from time import sleep
-from datetime import datetime, timedelta
-import re
-import jira_feed_config
 from lib import api
 
 
+jira_feed_config = api.load_config("./jira.json")
 latest = None
 
 def strtodt(string):
@@ -27,7 +28,7 @@ while True:
             continue
             api.send_privmsg(jira_feed_config.channel,
                              'JIRA - %s' % re.sub('(\w\w-\d+)',
-                                                  '%sbrowse/\\1'%jira_feed_config.url,
+                                                  '%sbrowse/\\1'%jira_feed_config.jira_url,
                                                   message))
 
     sleep(jira_feed_config.poll_rate)

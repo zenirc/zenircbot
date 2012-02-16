@@ -5,8 +5,8 @@ Installing ZenIRCBot will one day be much simpler, but for now there
 are a number of steps to it.
 
 To start with, the bot is written in both JavaScript_ using the Node_
-platform, and there is a verion that is written in Python_. Two of the
-services are written in or rely on Python_ the rest are written in
+platform, and there is a version that is written in Python_. Two of
+the services are written in or rely on Python_ the rest are written in
 JavaScript.
 
 If you are on Ubuntu, you should probably build and install Node_ and
@@ -28,7 +28,7 @@ like so::
 
 Then modify it and fill in the values with your own.
 
-.. note:: Despite the option being `servers` currently ZenIRCBot only
+.. note:: Despite the option being `servers` ZenIRCBot currently only
           supports 1 server. It is named as such for future
           compatibility
 

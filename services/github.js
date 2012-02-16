@@ -2,7 +2,7 @@ var redis_lib = require('redis');
 var sub = redis_lib.createClient();
 var api = require('./lib/api')
 var color = require('./lib/colors');
-var github_config = require('./github_config');
+var github_config = api.load_config('./github.json');
 
 api.send_privmsg(github_config.channel,
 		 'github post commit hook broadcaster online');

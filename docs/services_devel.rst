@@ -85,14 +85,29 @@ The possible ``out`` messages.
 	    command: '',
 	}
 
+API Library
+~~~~~~~~~~~
+
+These are the functions that can be found in the python and node.js
+api library.
+
+.. js:function:: send_msg(channel, message)
+
+   :param string channel: The channel to send the message to.
+   :param string message: The message to send
+
+   This is a helper so you don't have to handle the JSON or the
+   envelope yourself.
+
+.. js:function:: load_config(name)
+
+   :param string name: The JSON file to load.
+   :returns: An native object with the contents of the JSON file.
+
+   This is a helper so you don't have to do the file IO and JSON
+   parsing yourself.
+
 .. note::
     If you port ``lib/api`` to another langauge, please send a
     pull request with it, I'll gladly add it and maintain it to stay
     up to date with any protocol changes.
-
-- admin.js
-- github.js
-- jira_feed.py
-- jira_ticket.js
-- release.js
-- weblistener.js

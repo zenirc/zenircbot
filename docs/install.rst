@@ -111,6 +111,34 @@ Viola, your bot should connect, and go forth on its merry way. It wont
 do anything interesting until you start up services. You can find
 information on starting up :doc:`services`.
 
+Getting the clojure bot running
+-------------------------------
+
+To start with you'll need to install Clojure_, Leiningen_ and
+Redis_. Once you have those installed you'll check out the clojure bot
+with::
+
+    $ git submodule init
+    $ git submodule update
+
+Then you'll start the bot with::
+
+    $ cd clojurebot
+    $ lein trampoline run -m zenircbot-clojure.core
+
+If you want to use the admin service for starting/stopping/restarting
+the services you'll also need to install Python_, virtualenv_, and
+tmux_. Create a virtualenv and install Fabric_ in it (if you have
+virtualenvwrapper installed already feel free to use it of course)::
+
+    $ virtualenv zib
+    $ source zib/bin/activate
+    $ pip install fabric
+
+Viola, your bot should connect, join the channels in the config and go
+forth on its merry way. It wont do anything interesting until you
+start up services. You can find information on starting up :doc:`services`.
+
 
 .. _JavaScript: http://en.wikipedia.org/wiki/JavaScript
 .. _node: http://nodejs.org
@@ -122,3 +150,5 @@ information on starting up :doc:`services`.
 .. _tmux: http://tmux.sourceforge.net/
 .. _Fabric: http://fabfile.org/
 .. _irckit: https://github.com/coleifer/irc
+.. _Clojure: http://clojure.org/
+.. _Leiningen: https://github.com/technomancy/leiningen

@@ -16,33 +16,33 @@ function server_config_for(idx) {
 }
 
 function output_version_1(message) {
-    console.log('output_version_1');
     switch (message.type) {
-    case 'privmsg':
-	console.log('  privmsg');
-	bot.say(message.data.to, message.data.message);
-	break;
-    case 'raw':
-	console.log('  raw');
-	bot.send(message.command);
-	break;
+		case 'privmsg':
+			console.log('  privmsg');
+			bot.say(message.data.to, message.data.message);
+		break;
+		case 'raw':
+			console.log('  raw');
+			bot.send(message.command);
+		break;
     }
 }
 
 function setup() {
 	var cfg = server_config_for(0)
+	console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick)
 	var bot = new irc.Client(cfg.hostname, cfg.nick, cfg);
 
 	bot.addListener('message', function(nick, to, text, message) {
 	    console.log(nick + ' said ' + text + ' to ' + to);
 	    msg = {
-		version: 1,
-		type: 'privmsg',
-		data: {
-		    sender: nick,
-		    channel: to,
-		    message: text,
-		},
+			version: 1,
+			type: 'privmsg',
+			data: {
+			    sender: nick,
+			    channel: to,
+			    message: text,
+			},
 	    };
 	    pub.publish('in', JSON.stringify(msg));
 	});

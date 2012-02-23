@@ -75,7 +75,8 @@ Getting the python bot running
 
     This version of the bot is less battle tested than the node
     version. This doesn't mean you shouldn't use it, just know that
-    these instructions may change in the near future.
+    these instructions may change in the near future. Also it doesn't
+    use all of the options in the ``bot.json``
 
 To start with you'll need to install Python_, virtualenv_ and Redis_
 (all three provided by your OS package manager). Once you have those
@@ -113,6 +114,13 @@ information on starting up :doc:`services`.
 
 Getting the clojure bot running
 -------------------------------
+
+.. warning::
+
+    This version of the bot is less battle tested than the node
+    version. This doesn't mean you shouldn't use it, just know that
+    these instructions may change in the near future. Also it doesn't
+    use all of the options in the ``bot.json``
 
 To start with you'll need to install Clojure_, Leiningen_ and
 Redis_. Once you have those installed you'll check out the clojure bot

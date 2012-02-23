@@ -15,7 +15,7 @@ function server_config_for(idx) {
 	return cfg;
 }
 
-function output_version_1(message) {
+function output_version_1(bot, message) {
     switch (message.type) {
 		case 'privmsg':
 			console.log('  privmsg');
@@ -29,7 +29,7 @@ function output_version_1(message) {
 }
 
 function setup() {
-	var cfg = server_config_for(0)
+	var cfg = server_config_for(1)
 	console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick)
 	var bot = new irc.Client(cfg.hostname, cfg.nick, cfg);
 
@@ -54,7 +54,7 @@ function setup() {
 	sub.subscribe('out')
 	sub.on('message', function(channel, message) {
 	    msg = JSON.parse(message);
-	    output_handlers[msg.version](msg)
+	    output_handlers[msg.version](bot, msg)
 	});
 }
 

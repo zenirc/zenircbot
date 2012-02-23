@@ -15,7 +15,7 @@ function server_config_for(idx) {
 	return cfg;
 }
 
-function output_version_1(message) {
+function output_version_1(bot, message) {
     switch (message.type) {
 		case 'privmsg':
 			console.log('  privmsg');
@@ -54,7 +54,7 @@ function setup() {
 	sub.subscribe('out')
 	sub.on('message', function(channel, message) {
 	    msg = JSON.parse(message);
-	    output_handlers[msg.version](msg)
+	    output_handlers[msg.version](bot, msg)
 	});
 }
 

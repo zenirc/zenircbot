@@ -29,7 +29,7 @@ function output_version_1(bot, message) {
 }
 
 function setup() {
-	var cfg = server_config_for(1)
+	var cfg = server_config_for(0)
 	console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick)
 	var bot = new irc.Client(cfg.hostname, cfg.nick, cfg);
 

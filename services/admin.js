@@ -9,24 +9,31 @@ var service_regex = new RegExp(bot_config.servers[0].nick + ': restart (.*)');
 
 function puts(error, stdout, stderr) { sys.puts(stdout) }
 
+api.register_commands("admin", [{name: "restart",
+                                 description: "This will restart the bot if it is running in tmux."},
+                                {name: "restart <service>",
+                                 description: "This will restart the service mentioned if it is JS and running in tmux."},
+                                {name: "git pull",
+                                 description: "This will pull down the code for the zenircbot."}])
+
 api.send_privmsg(config.channel, 'admin online');
 
 sub.subscribe('in');
 sub.on('message', function(channel, message){
     msg = JSON.parse(message)
     if (msg.version == 1 && msg.type == 'privmsg') {
-	if (config.owners.indexOf(msg.data.sender) != -1) {
-	    if (msg.data.message == bot_config.servers[0].nick + ': restart') {
-		restart();
-	    } else if (service_regex.test(msg.data.message)) {
-		result = service_regex.exec(msg.data.message);
-		restart_service(result[1]);
-	    } else if (msg.data.message == bot_config.servers[0].nick + ': pull') {
-		git_pull();
-	    }
-	}
+        if (config.owners.indexOf(msg.data.sender) != -1) {
+            if (msg.data.message == bot_config.servers[0].nick + ': restart') {
+                restart();
+            } else if (service_regex.test(msg.data.message)) {
+                result = service_regex.exec(msg.data.message);
+                restart_service(result[1]);
+            } else if (msg.data.message == bot_config.servers[0].nick + ': pull') {
+                git_pull();
+            }
+        }
     }
-	
+
 });
 
 function restart() {

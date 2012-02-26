@@ -14,8 +14,7 @@ def strtodt(string):
     return datetime.strptime(string, '%Y-%m-%dT%H:%M:%SZ')
 
 while True:
-
-    feed = parse(jira_feed_config.feed_url)
+    feed = parse(jira_feed_config['feed_url'])
     if latest is None:
         latest = strtodt(feed['entries'][0].updated) - timedelta(seconds=1)
     entries = [entry for entry in feed['entries'] if strtodt(entry.updated) > latest]
@@ -26,9 +25,9 @@ while True:
         message = ''.join(bs.findAll(text=True))
         if not ('created' in message or 'resolved' in message or 'reopened' in message):
             continue
-            api.send_privmsg(jira_feed_config.channel,
-                             'JIRA - %s' % re.sub('(\w\w-\d+)',
-                                                  '%sbrowse/\\1'%jira_feed_config.jira_url,
-                                                  message))
+        api.send_privmsg(jira_feed_config['channel'],
+                         'JIRA - %s' % re.sub('(\w\w-\d+)',
+                                              '%sbrowse/\\1'%jira_feed_config['jira_url'],
+                                              message))
 
-    sleep(jira_feed_config.poll_rate)
+    sleep(jira_feed_config['poll_rate'])

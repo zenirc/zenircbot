@@ -5,8 +5,8 @@ var irc = require('irc');
 var api = require('./services/lib/api');
 var config = api.load_config('bot.json');
 
-function server_config_for(idx) {
-    var cfg = config.servers[idx]
+function server_config_for(profile_name) {
+    var cfg = config.servers[profile_name]
     /* server-generic options */
 	cfg.debug = config.options.debug;
 	cfg.floodProtection = config.options.floodProtection;
@@ -28,9 +28,10 @@ function output_version_1(bot, message) {
     }
 }
 
-function setup() {
-	var cfg = server_config_for(0)
-	console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick)
+function setup(profile) {
+	var cfg = server_config_for(profile)
+
+	console.log('profile: '+profile+' irc server: '+cfg.hostname+' nick: '+cfg.nick)
 	var bot = new irc.Client(cfg.hostname, cfg.nick, cfg);
 
 	bot.addListener('message', function(nick, to, text, message) {
@@ -58,4 +59,26 @@ function setup() {
 	});
 }
 
-setup();
+function cli_help() {
+	console.log("Usage: node bot <profile name>");
+	console.log("Profiles from bot.json:");
+	for(var profile in config.servers) {
+		console.log("\""+profile+"\"");
+	}
+	process.exit(1);
+}
+
+var profile_name = process.argv[2];
+if(process.argv.length == 3) {
+	if(config.servers[profile_name]) {
+		setup(profile_name);
+	} else {
+		console.log("Unknown profile \""+profile_name+"\"");
+		cli_help();
+	}
+} else {
+	for(var profile in config.servers) {
+		setup(profile);
+		break;
+	}
+}

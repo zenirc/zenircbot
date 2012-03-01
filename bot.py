@@ -26,7 +26,7 @@ class RelayBot(IRCBot):
                 if message['type'] == 'privmsg':
                     self.respond(message['data']['message'], channel=message['data']['to'])
 
-    def do_pub(self, nick, message, channel):
+    def do_privmsg(self, nick, message, channel):
         to_publish = json.dumps({
             'version': 1,
             'type': 'privmsg',
@@ -40,9 +40,34 @@ class RelayBot(IRCBot):
         r.publish('in', to_publish)
         print "Sending to in %s" % to_publish
 
+    def do_part(self, nick, command, channel):
+        to_publish = json.dumps({
+            'version': 1,
+            'type': 'part',
+            'data': {
+                'sender': nick,
+                'channel': channel,
+            }
+        })
+        r.publish('in', to_publish)
+        print "Sending to in %s" % to_publish
+
+    def do_quit(self, command, nick, channel):
+        to_publish = json.dumps({
+            'version': 1,
+            'type': 'quit',
+            'data': {
+                'sender': nick,
+            }
+        })
+        r.publish('in', to_publish)
+        print "Sending to in %s" % to_publish
+
     def command_patterns(self):
         return (
-            ('.*', self.do_pub),
+            ('/privmsg', self.do_privmsg),
+            ('/part', self.do_part),
+            ('/quit', self.do_quit),
         )
 
 config = load_config('bot.json')

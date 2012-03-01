@@ -47,6 +47,31 @@ function setup() {
         pub.publish('in', JSON.stringify(msg));
     });
 
+    bot.addListener('part', function(channel, nick, reason, message) {
+        console.log(nick + ' left ' + channel + ' because ' + reason);
+        var msg = {
+            version: 1,
+            type: 'part',
+            data: {
+                sender: nick,
+                channel: channel,
+            },
+        };
+        pub.publish('in', JSON.stringify(msg));
+    });
+
+    bot.addListener('quit', function(nick, reason, channels, message) {
+        console.log(nick + ' quit');
+        var msg = {
+            version: 1,
+            type: 'quit',
+            data: {
+                sender: nick,
+            },
+        };
+        pub.publish('in', JSON.stringify(msg));
+    });
+
     var output_handlers = {
         1: output_version_1,
     };

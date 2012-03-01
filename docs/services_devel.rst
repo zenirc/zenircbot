@@ -40,9 +40,9 @@ First lets look at the low level protocol. Messages all have the same
 envelope::
 
     {
-        version: 1,
-        type: '',
-        data: {
+        "version": 1,
+        "type": "",
+        "data": {
             ...
         }
     }
@@ -52,38 +52,55 @@ In messages
 
 The possible ``in`` messages.
 
-.. js:data:: 'privmsg'
+.. js:data:: "privmsg"
 
-    Sent whenever a privmsg comes in on IRC::
+    Sent whenever a privmsg comes in::
 
-        data: {
-            from: '',
-	    channel: '',
-	    message: '',
-    	}
+        "data": {
+            "sender": "",
+            "channel": "",
+            "message": ""
+            }
+
+.. js:data:: "part"
+
+    Sent whenever someone leaves a channel::
+
+        "data": {
+            "sender": "",
+            "channel": ""
+            }
+
+.. js:data:: "quit"
+
+    Sent whenever someone quits::
+
+        "data": {
+            "sender": ""
+            }
 
 Out messages
 ~~~~~~~~~~~~
 
 The possible ``out`` messages.
 
-.. js:data:: 'privmsg'
+.. js:data:: "privmsg"
 
     Used to have the bot say something::
 
-        data: {
-	    to: '',
-	    message: '',
-	}
+        "data": {
+            "to": "",
+            "message": ""
+        }
 
 
-.. js:data:: 'raw'
+.. js:data:: "raw"
 
     Used to have the bot send a raw string to the IRC server::
 
-        data: {
-	    command: '',
-	}
+        "data": {
+            "command": ""
+        }
 
 API Library
 ~~~~~~~~~~~

@@ -51,21 +51,20 @@ then numbers. For example BH-1234, it takes that, and appends it to
 the specified JIRA URL and says it back to the channel so you get
 links to issues automatically. It is written in `Node.js`_.
 
-Ls
+Troll
 --
 
-.. _ls:
+.. _troll:
 
-This service was started as a basic troll and has grown since then, in
-a future release it is very likely that it will be renamed and made
-more modular as it keeps getting more trolling stuff added to it. It
-is written in `Node.js`_.
+This service is a basic trolling service. It is written in `Node.js`_.
 
 Commands
 ~~~~~~~~
 
 ls
     Responds with a funny picture.
+irssi
+    Responds with a suggestion to use weechat.
 
 Release
 -------
@@ -107,14 +106,6 @@ redis in the format of::
 
 Where payload is the POST body and app is
 http://example.com/whatever-path-on-the-url-posted-to for example.
-
-Weechat
--------
-
-.. _weechat:
-
-This service will be folded into the ls_ service in the near
-future. It is yet another trolling service. It is written in `Node.js`_.
 
 .. _`Node.js`: http://nodejs.com/
 .. _`Python`: http://python.org/

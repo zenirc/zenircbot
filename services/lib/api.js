@@ -50,6 +50,7 @@ function load_config(name) {
 
 module.exports = {
     send_privmsg: send_privmsg,
+    send_admin_message: send_admin_message,
     register_commands: register_commands,
     load_config: load_config,
 }

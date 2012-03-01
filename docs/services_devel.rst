@@ -121,7 +121,7 @@ api library.
    :param string message: The message to send.
 
    This is a helper function that sends the message to all of the
-   channels defined in admin_spew_channels.
+   channels defined in ``admin_spew_channels``.
 
 .. js:function:: register_commands(script, commands)
 
@@ -129,7 +129,7 @@ api library.
    :param list commands: A list of objects with name and description
                          attributes used to reply to a commands query.
 
-   This will notify all admin_spew_channels of the script coming
+   This will notify all ``admin_spew_channels`` of the script coming
    online when the script registers itself. It will also setup a
    subscription to the 'out' channel that listens for 'commands' to be
    sent to the bot and responds with the list of script, command name,

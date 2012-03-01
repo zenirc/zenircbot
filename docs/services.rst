@@ -2,7 +2,14 @@ Services
 ========
 
 This is the documentation for the individual services that come with
-ZenIRCBot. 
+ZenIRCBot. For all of the `Node.js`_ based services you'll need to
+have the node `redis`_ library installed. For the `Python`_ based
+services you'll need to need to have the python `redis`_ library
+installed::
+
+    $ npm install redis # for Node
+
+    $ pip install redis # for Python
 
 
 Admin
@@ -11,15 +18,21 @@ Admin
 .. _admin:
 
 This is a service for doing basic things like starting and stopping
-other services or restarting the bot. It is written in `Node.js`_.
+other services or restarting the bot. It is written in `Node.js`_ and
+also relies on `forever`_::
+
+    $ npm install forever
 
 Commands
 ~~~~~~~~
-restart
-    This restarts the bot.
+start <service name>
+    This will start the specified service.
 
 restart <service name>
-    This will restart a specific service.
+    This will restart the specific service.
+
+stop <service name>
+    This will restart the specific service.
 
 pull
     This will pull down new code.
@@ -105,7 +118,14 @@ redis in the format of::
     }
 
 Where payload is the POST body and app is
-http://example.com/whatever-path-on-the-url-posted-to for example.
+http://example.com/whatever-path-on-the-url-posted-to for example. It
+is written in `Node.js`_ and also relies on having `express`_
+installed::
+
+    $ npm install express
 
 .. _`Node.js`: http://nodejs.com/
 .. _`Python`: http://python.org/
+.. _`redis`: http://redis.io/
+.. _`forever`: https://github.com/nodejitsu/forever
+.. _`express`: http://expressjs.com/

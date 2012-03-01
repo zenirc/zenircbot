@@ -3,11 +3,21 @@ var sub = redis_lib.createClient();
 var sys = require('sys');
 var exec = require('child_process').exec;
 var api = require('./lib/api');
+var admin_config = api.load_config('./admin.json');
 var bot_config = api.load_config('../bot.json');
-var service_regex = new RegExp(bot_config.servers[0].nick + ': restart (.*)');
-
+var service_start_regex = new RegExp(bot_config.servers[0].nick + ': start (.*)');
+var service_restart_regex = new RegExp(bot_config.servers[0].nick + ': restart (.*)');
+var service_stop_regex = new RegExp(bot_config.servers[0].nick + ': stop (.*)');
+var forever = require('forever');
+var services = {};
 
 function puts(error, stdout, stderr) { sys.puts(stdout); }
+
+language_map = {'js': 'node',
+                'py': 'python',
+                'rb': 'ruby'}
+
+admin_config.services.forEach(start_service)
 
 api.register_commands("admin.js", [{name: "restart",
                                     description: "This will restart the bot if it is running in tmux."},
@@ -23,9 +33,15 @@ sub.on('message', function(channel, message){
         if (bot_config.servers[0].admin_nicks.indexOf(msg.data.sender) != -1) {
             if (msg.data.message == bot_config.servers[0].nick + ': restart') {
                 restart();
-            } else if (service_regex.test(msg.data.message)) {
-                result = service_regex.exec(msg.data.message);
+            } else if (service_start_regex.test(msg.data.message)) {
+                result = service_start_regex.exec(msg.data.message);
+                start_service(result[1]);
+            } else if (service_restart_regex.test(msg.data.message)) {
+                result = service_restart_regex.exec(msg.data.message);
                 restart_service(result[1]);
+            } else if (service_stop_regex.test(msg.data.message)) {
+                result = service_stop_regex.exec(msg.data.message);
+                stop_service(result[1]);
             } else if (msg.data.message == bot_config.servers[0].nick + ': pull') {
                 git_pull();
             }
@@ -38,9 +54,42 @@ function restart() {
     exec("fab zenbot restart", puts);
 }
 
+function start_service(service) {
+    if (services[service]) {
+        if (services[service].running) {
+            api.send_admin_message(service + ' is already running');
+        } else {
+            api.send_admin_message('starting ' + service);
+            services[service].start();
+        }
+    } else {
+        api.send_admin_message('starting ' + service);
+        child = forever.start([language_map[service.split('.')[1]], service], {
+            max: 1,
+            silent: false
+        });
+        forever.startServer(child);
+        services[service] = child;
+        forever.cli.list();
+    }
+}
+
 function restart_service(service) {
-    api.send_admin_message('restarting ' + service);
-    exec("fab zenbot service:" + service, puts);
+    if (!services[service] || !services[service].running) {
+        api.send_admin_message(service + ' isn\'t running');
+    } else {
+        api.send_admin_message('restarting ' + service);
+        services[service].restart();
+    }
+}
+
+function stop_service(service) {
+    if (!services[service] || !services[service].running) {
+        api.send_admin_message(service + ' isn\'t running');
+    } else {
+        api.send_admin_message('stopping ' + service);
+        services[service].stop();
+    }
 }
 
 function git_pull() {

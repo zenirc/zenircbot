@@ -6,7 +6,7 @@ var api = require('./services/lib/api');
 var config = api.load_config('bot.json');
 
 function server_config_for(idx) {
-    var cfg = config.servers[idx]
+    var cfg = config.servers[idx];
     /* server-generic options */
     cfg.debug = config.options.debug;
     cfg.floodProtection = config.options.floodProtection;
@@ -29,13 +29,13 @@ function output_version_1(bot, message) {
 }
 
 function setup() {
-    var cfg = server_config_for(0)
-    console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick)
+    var cfg = server_config_for(0);
+    console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick);
     var bot = new irc.Client(cfg.hostname, cfg.nick, cfg);
 
     bot.addListener('message', function(nick, to, text, message) {
         console.log(nick + ' said ' + text + ' to ' + to);
-        msg = {
+        var msg = {
             version: 1,
             type: 'privmsg',
             data: {
@@ -51,10 +51,10 @@ function setup() {
         1: output_version_1,
     };
 
-    sub.subscribe('out')
+    sub.subscribe('out');
     sub.on('message', function(channel, message) {
-        msg = JSON.parse(message);
-        output_handlers[msg.version](bot, msg)
+        var msg = JSON.parse(message);
+        output_handlers[msg.version](bot, msg);
     });
 }
 

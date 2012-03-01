@@ -7,18 +7,18 @@ var bot_config = api.load_config('../bot.json');
 var service_regex = new RegExp(bot_config.servers[0].nick + ': restart (.*)');
 
 
-function puts(error, stdout, stderr) { sys.puts(stdout) }
+function puts(error, stdout, stderr) { sys.puts(stdout); }
 
 api.register_commands("admin.js", [{name: "restart",
                                     description: "This will restart the bot if it is running in tmux."},
                                    {name: "restart <service>",
                                     description: "This will restart the service mentioned if it is JS and running in tmux."},
                                    {name: "git pull",
-                                    description: "This will pull down the code for the zenircbot."}])
+                                    description: "This will pull down the code for the zenircbot."}]);
 
 sub.subscribe('in');
 sub.on('message', function(channel, message){
-    msg = JSON.parse(message)
+    var msg = JSON.parse(message);
     if (msg.version == 1 && msg.type == 'privmsg') {
         if (bot_config.servers[0].admin_nicks.indexOf(msg.data.sender) != -1) {
             if (msg.data.message == bot_config.servers[0].nick + ': restart') {

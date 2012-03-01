@@ -7,14 +7,14 @@ var admin_config = api.load_config('./admin.json');
 var weblistener_config = api.load_config('./weblistener.json');
 
 
-api.register_commands('weblistener.js', [])
+api.register_commands('weblistener.js', []);
 
 app.use(express.bodyParser());
 
 app.post('/:app', function(req, res) {
-    console.log(req.params['app']);
-    message = {
-        app: req.params['app'],
+    console.log(req.params.app);
+    var message = {
+        app: req.params.app,
         body: req.body
     };
     client.publish('web_in', JSON.stringify(message));

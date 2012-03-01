@@ -10,7 +10,7 @@ api.register_commands("ls", [{name: "ls",
 
 sub.subscribe('in');
 sub.on('message', function(channel, message){
-    msg = JSON.parse(message)
+    var msg = JSON.parse(message);
     if (msg.version == 1 && msg.type == 'privmsg') {
         if (ls.test(msg.data.message)) {
             api.send_privmsg(msg.data.channel,

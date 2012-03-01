@@ -6,16 +6,16 @@ var api = require('./lib/api');
 var admin_config = api.load_config('./admin.json');
 var weblistener_config = api.load_config('./weblistener.json');
 
-api.send_privmsg(admin_config.channel,
-		 'web listener online');
+
+api.register_commands('weblistener.js', [])
 
 app.use(express.bodyParser());
 
 app.post('/:app', function(req, res) {
     console.log(req.params['app']);
     message = {
-	app: req.params['app'],
-	body: req.body
+        app: req.params['app'],
+        body: req.body
     };
     client.publish('web_in', JSON.stringify(message));
     res.send('',404);

@@ -9,12 +9,12 @@ var service_regex = new RegExp(bot_config.servers[0].nick + ': restart (.*)');
 
 function puts(error, stdout, stderr) { sys.puts(stdout) }
 
-api.register_commands("admin", [{name: "restart",
-                                 description: "This will restart the bot if it is running in tmux."},
-                                {name: "restart <service>",
-                                 description: "This will restart the service mentioned if it is JS and running in tmux."},
-                                {name: "git pull",
-                                 description: "This will pull down the code for the zenircbot."}])
+api.register_commands("admin.js", [{name: "restart",
+                                    description: "This will restart the bot if it is running in tmux."},
+                                   {name: "restart <service>",
+                                    description: "This will restart the service mentioned if it is JS and running in tmux."},
+                                   {name: "git pull",
+                                    description: "This will pull down the code for the zenircbot."}])
 
 sub.subscribe('in');
 sub.on('message', function(channel, message){

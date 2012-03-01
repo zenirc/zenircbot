@@ -51,21 +51,6 @@ then numbers. For example BH-1234, it takes that, and appends it to
 the specified JIRA URL and says it back to the channel so you get
 links to issues automatically. It is written in `Node.js`_.
 
-Troll
---
-
-.. _troll:
-
-This service is a basic trolling service. It is written in `Node.js`_.
-
-Commands
-~~~~~~~~
-
-ls
-    Responds with a funny picture.
-irssi
-    Responds with a suggestion to use weechat.
-
 Release
 -------
 
@@ -90,6 +75,21 @@ then emit something like::
     release of feature/cool_stuff started on staging-04
 
 To the channel specified in the config. It is written in `Node.js`_.
+
+Troll
+-----
+
+.. _troll:
+
+This service is a basic trolling service. It is written in `Node.js`_.
+
+Commands
+~~~~~~~~
+
+ls
+    Responds with a funny picture.
+irssi
+    Responds with a suggestion to use weechat.
 
 Weblistener
 -----------

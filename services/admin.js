@@ -16,8 +16,6 @@ api.register_commands("admin", [{name: "restart",
                                 {name: "git pull",
                                  description: "This will pull down the code for the zenircbot."}])
 
-api.send_privmsg(config.channel, 'admin online');
-
 sub.subscribe('in');
 sub.on('message', function(channel, message){
     msg = JSON.parse(message)

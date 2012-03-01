@@ -4,17 +4,40 @@ var pub = redis_lib.createClient();
 
 
 function send_privmsg(to, message) {
-    return pub.publish('out', JSON.stringify({
-        version: 1,
-        type: 'privmsg',
-        data: {
-            to: to,
-            message: message
-        },
-    }));
+    if (typeof(to) == "string") {
+        return pub.publish('out', JSON.stringify({
+            version: 1,
+            type: 'privmsg',
+            data: {
+                to: to,
+                message: message
+            }}));
+    } else {
+        to.forEach(function(destination) {
+            pub.publish('out', JSON.stringify({
+                version: 1,
+                type: 'privmsg',
+                data: {
+                    to: destination,
+                    message: message
+                }}))});
+    }
+}
+
+function send_admin_message(message) {
+    var config = load_config('../bot.json');
+    config.servers[0].admin_spew_channels.forEach(function(destination) {
+        pub.publish('out', JSON.stringify({
+            version: 1,
+            type: 'privmsg',
+            data: {
+                to: destination,
+                message: message
+            }}))});
 }
 
 function register_commands(service, commands) {
+    send_admin_message(service + " online!")
     sub = redis_lib.createClient();
     sub.subscribe('in');
     sub.on('message', function(channel, message){

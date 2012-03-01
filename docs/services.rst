@@ -23,6 +23,12 @@ also relies on `forever`_::
 
     $ npm install forever
 
+Config
+~~~~~~
+
+The config is very simple, a single option called ``services`` which
+is a list of services you want started when you start ``admin.js``
+
 Commands
 ~~~~~~~~
 start <service name>

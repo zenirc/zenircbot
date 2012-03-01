@@ -19,10 +19,12 @@ language_map = {'js': 'node',
 
 admin_config.services.forEach(start_service)
 
-api.register_commands("admin.js", [{name: "restart",
-                                    description: "This will restart the bot if it is running in tmux."},
+api.register_commands("admin.js", [{name: "restart <service>",
+                                    description: "This will start the service mentioned."},
                                    {name: "restart <service>",
-                                    description: "This will restart the service mentioned if it is JS and running in tmux."},
+                                    description: "This will restart the service mentioned if it was started via admin.js."},
+                                   {name: "stop <service>",
+                                    description: "This will stop the service mentioned if it was started via admin.js."},
                                    {name: "git pull",
                                     description: "This will pull down the code for the zenircbot."}]);
 
@@ -31,9 +33,7 @@ sub.on('message', function(channel, message){
     var msg = JSON.parse(message);
     if (msg.version == 1 && msg.type == 'privmsg') {
         if (bot_config.servers[0].admin_nicks.indexOf(msg.data.sender) != -1) {
-            if (msg.data.message == bot_config.servers[0].nick + ': restart') {
-                restart();
-            } else if (service_start_regex.test(msg.data.message)) {
+            if (service_start_regex.test(msg.data.message)) {
                 result = service_start_regex.exec(msg.data.message);
                 start_service(result[1]);
             } else if (service_restart_regex.test(msg.data.message)) {
@@ -49,11 +49,6 @@ sub.on('message', function(channel, message){
     }
 });
 
-function restart() {
-    api.send_admin_message('brb!');
-    exec("fab zenbot restart", puts);
-}
-
 function start_service(service) {
     if (services[service]) {
         if (services[service].running) {
@@ -65,7 +60,7 @@ function start_service(service) {
     } else {
         api.send_admin_message('starting ' + service);
         child = forever.start([language_map[service.split('.')[1]], service], {
-            max: 1,
+            max: 10000,
             silent: false
         });
         forever.startServer(child);

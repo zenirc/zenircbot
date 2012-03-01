@@ -108,13 +108,32 @@ API Library
 These are the functions that can be found in the python and node.js
 api library.
 
-.. js:function:: send_msg(channel, message)
+.. js:function:: send_privmsg(channel, message)
 
    :param string channel: The channel to send the message to.
-   :param string message: The message to send
+   :param string message: The message to send.
 
    This is a helper so you don't have to handle the JSON or the
    envelope yourself.
+
+.. js:function:: send_admin_message(message)
+
+   :param string message: The message to send.
+
+   This is a helper function that sends the message to all of the
+   channels defined in admin_spew_channels.
+
+.. js:function:: register_commands(script, commands)
+
+   :param string script: The script with extension that you are registering.
+   :param list commands: A list of objects with name and description
+                         attributes used to reply to a commands query.
+
+   This will notify all admin_spew_channels of the script coming
+   online when the script registers itself. It will also setup a
+   subscription to the 'out' channel that listens for 'commands' to be
+   sent to the bot and responds with the list of script, command name,
+   and command description for all registered scripts.
 
 .. js:function:: load_config(name)
 

@@ -5,28 +5,9 @@ var pub = redis_lib.createClient();
 
 function send_privmsg(to, message) {
     if (typeof(to) == "string") {
-        return pub.publish('out', JSON.stringify({
-            version: 1,
-            type: 'privmsg',
-            data: {
-                to: to,
-                message: message
-            }}));
-    } else {
-        to.forEach(function(destination) {
-            pub.publish('out', JSON.stringify({
-                version: 1,
-                type: 'privmsg',
-                data: {
-                    to: destination,
-                    message: message
-                }}))});
+        to = [to]
     }
-}
-
-function send_admin_message(message) {
-    var config = load_config('../bot.json');
-    config.servers[0].admin_spew_channels.forEach(function(destination) {
+    to.forEach(function(destination) {
         pub.publish('out', JSON.stringify({
             version: 1,
             type: 'privmsg',
@@ -34,6 +15,13 @@ function send_admin_message(message) {
                 to: destination,
                 message: message
             }}))});
+
+}
+
+function send_admin_message(message) {
+    var config = load_config('../bot.json');
+    send_privmsg(config.servers[0].admin_spew_channels, message);
+
 }
 
 function register_commands(service, commands) {

@@ -7,6 +7,8 @@ from feedparser import parse
 from lib import api
 
 
+api.register_commands('jira_feed.py', [])
+
 jira_feed_config = api.load_config("./jira.json")
 latest = None
 

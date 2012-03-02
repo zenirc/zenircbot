@@ -1,9 +1,7 @@
 var express = require('express');
 var app = express.createServer();
-var redis = require('redis');
-var client = redis.createClient();
 var api = require('./lib/api');
-var admin_config = api.load_config('./admin.json');
+var pub = api.get_redis_client();
 var weblistener_config = api.load_config('./weblistener.json');
 
 
@@ -17,7 +15,7 @@ app.post('/:app', function(req, res) {
         app: req.params.app,
         body: req.body
     };
-    client.publish('web_in', JSON.stringify(message));
+    pub.publish('web_in', JSON.stringify(message));
     res.send('',404);
 });
 

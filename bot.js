@@ -1,9 +1,8 @@
-var redis_lib = require('redis');
-var pub = redis_lib.createClient();
-var sub = redis_lib.createClient();
 var irc = require('irc');
 var api = require('./services/lib/api');
 var config = api.load_config('bot.json');
+var pub = api.get_redis_client(config.redis);
+var sub = api.get_redis_client(config.redis);
 
 function server_config_for(idx) {
     var cfg = config.servers[idx];

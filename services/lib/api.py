@@ -1,22 +1,26 @@
-from redis import Redis
+from redis import StrictRedis
 import json
 from threading import Thread
 
 
+_pub = None
+
 def send_privmsg(to, message):
+    if _pub is None:
+        _pub = get_redis_client()
     if type(to) == type(''):
         to = (to,)
     else:
         for channel in to:
-            Redis().publish('out',
-                            json.dumps({
-                                'version': 1,
-                                'type': 'privmsg',
-                                'data': {
-                                    'to': channel,
-                                    'message': message,
-                                }
-                            }))
+            _pub.publish('out',
+                         json.dumps({
+                             'version': 1,
+                             'type': 'privmsg',
+                             'data': {
+                                 'to': channel,
+                                 'message': message,
+                             }
+                         }))
 
 
 def send_admin_message(message):
@@ -25,7 +29,7 @@ def send_admin_message(message):
 
 
 def non_blocking_redis_subscribe(func, args=[], kwargs={}):
-    pubsub = Redis().pubsub()
+    pubsub = get_redis_client().pubsub()
     pubsub.subscribe('in')
     for msg in pubsub.listen():
         message = json.loads(msg['data'])
@@ -53,3 +57,11 @@ def register_commands(service, commands):
 def load_config(name):
     with open(name) as f:
         return json.loads(f.read())
+
+
+def get_redis_client(redis_config=None):
+    if not redis_config:
+        redis_config = load_config('../bot.json')['redis']
+    return StrictRedis(host=redis_config['host'],
+                       port=redis_config['port'],
+                       db=redis_config['db'])

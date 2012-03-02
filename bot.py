@@ -1,13 +1,14 @@
 import gevent
-import redis
 import json
 
 from irc import IRCBot, run_bot
 from gevent import monkey
-from services.lib.api import load_config
+from services.lib.api import load_config, get_redis_client
 monkey.patch_all()
 
-r = redis.StrictRedis(host='localhost', port=6379, db=0)
+
+config = load_config('./bot.json')
+pub = get_redis_client(config['redis'])
 
 class RelayBot(IRCBot):
 
@@ -16,8 +17,8 @@ class RelayBot(IRCBot):
         gevent.spawn(self.do_sub)
 
     def do_sub(self):
-        r = redis.StrictRedis(host='localhost', port=6379, db=0)
-        self.pubsub = r.pubsub()
+        sub = get_redis_client(config['redis'])
+        self.pubsub = sub.pubsub()
         self.pubsub.subscribe('out')
         for msg in self.pubsub.listen():
             message = json.loads(msg['data'])
@@ -37,7 +38,7 @@ class RelayBot(IRCBot):
                 },
             })
 
-        r.publish('in', to_publish)
+        pub.publish('in', to_publish)
         print "Sending to in %s" % to_publish
 
     def do_part(self, nick, command, channel):
@@ -49,7 +50,7 @@ class RelayBot(IRCBot):
                 'channel': channel,
             }
         })
-        r.publish('in', to_publish)
+        pub.publish('in', to_publish)
         print "Sending to in %s" % to_publish
 
     def do_quit(self, command, nick, channel):
@@ -60,7 +61,7 @@ class RelayBot(IRCBot):
                 'sender': nick,
             }
         })
-        r.publish('in', to_publish)
+        pub.publish('in', to_publish)
         print "Sending to in %s" % to_publish
 
     def command_patterns(self):
@@ -70,7 +71,6 @@ class RelayBot(IRCBot):
             ('/quit', self.do_quit),
         )
 
-config = load_config('bot.json')
 
 run_bot(RelayBot, config['servers'][0]['hostname'], config['servers'][0]['port'],
         config['servers'][0]['nick'], config['servers'][0]['channels'])

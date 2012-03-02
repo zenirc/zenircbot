@@ -20,5 +20,10 @@
 	"debug": false,
 	"floodProtection": true,
 	"stripColors": false
+    },
+    "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "db": 0
     }
 }

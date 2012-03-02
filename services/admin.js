@@ -1,10 +1,9 @@
-var redis_lib = require('redis');
-var sub = redis_lib.createClient();
 var sys = require('sys');
 var exec = require('child_process').exec;
 var api = require('./lib/api');
 var admin_config = api.load_config('./admin.json');
 var bot_config = api.load_config('../bot.json');
+var sub = api.get_redis_client(bot_config.redis);
 var service_start_regex = new RegExp(bot_config.servers[0].nick + ': start (.*)');
 var service_restart_regex = new RegExp(bot_config.servers[0].nick + ': restart (.*)');
 var service_stop_regex = new RegExp(bot_config.servers[0].nick + ': stop (.*)');

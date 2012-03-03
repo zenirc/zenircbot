@@ -4,11 +4,12 @@ import json
 from irc import IRCBot, run_bot
 from gevent import monkey
 from services.lib.api import load_config, get_redis_client
+
+
 monkey.patch_all()
-
-
 config = load_config('./bot.json')
 pub = get_redis_client(config['redis'])
+
 
 class RelayBot(IRCBot):
 
@@ -25,7 +26,8 @@ class RelayBot(IRCBot):
             print "Got %s" % message
             if message['version'] == 1:
                 if message['type'] == 'privmsg':
-                    self.respond(message['data']['message'], channel=message['data']['to'])
+                    self.respond(message['data']['message'],
+                                 channel=message['data']['to'])
 
     def do_privmsg(self, nick, message, channel):
         to_publish = json.dumps({
@@ -72,5 +74,6 @@ class RelayBot(IRCBot):
         )
 
 
-run_bot(RelayBot, config['servers'][0]['hostname'], config['servers'][0]['port'],
-        config['servers'][0]['nick'], config['servers'][0]['channels'])
+run_bot(RelayBot, config['servers'][0]['hostname'],
+        config['servers'][0]['port'], config['servers'][0]['nick'],
+        config['servers'][0]['channels'])

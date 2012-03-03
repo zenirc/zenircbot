@@ -33,7 +33,7 @@ while True:
                 'reopened' in message):
             continue
         api.send_privmsg(jira_config['channels'],
-                         'JIRA - %s' % re.sub('(\w\w-\d+)',
+                         'JIRA - %s' % re.sub('(?:\s|^)([a-zA-Z][a-zA-Z]-\d+)',
                                               jira_url,
                                               message))
 

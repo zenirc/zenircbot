@@ -12,7 +12,7 @@ sub.on('message', function(channel,message){
         return null;
     }
     var release_json = JSON.parse(message.body.payload);
-    api.send_privmsg(release_config.channel,
+    api.send_privmsg(release_config.channels,
                      'release of ' + release_json.branch +
                      ' ' + release_json.status +
                      ' on ' + release_json.hostname);

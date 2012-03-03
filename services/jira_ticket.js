@@ -10,11 +10,13 @@ sub.subscribe('in');
 sub.on('message', function(channel, message){
     var msg = JSON.parse(message);
     if (msg.version == 1 && msg.type == 'privmsg') {
-        if (msg.data.channel == config.channel && ticket.test(msg.data.message)) {
-            var result = ticket.exec(msg.data.message);
-            console.log(result[1]);
-            api.send_privmsg(msg.data.channel,
-                             config.jira_url + 'browse/' + result[1]);
+        if (config.channels.indexOf(msg.data.channel) != -1) {
+            if (ticket.test(msg.data.message)) {
+                var result = ticket.exec(msg.data.message);
+                console.log(result[1]);
+                api.send_privmsg(config.channels,
+                                 config.jira_url + 'browse/' + result[1]);
+            }
         }
     }
 });

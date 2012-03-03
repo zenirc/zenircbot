@@ -32,7 +32,7 @@ while True:
                 'resolved' in message or
                 'reopened' in message):
             continue
-        api.send_privmsg(jira_config['channel'],
+        api.send_privmsg(jira_config['channels'],
                          'JIRA - %s' % re.sub('(\w\w-\d+)',
                                               jira_url,
                                               message))

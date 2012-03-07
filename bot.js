@@ -46,6 +46,10 @@ function setup() {
         pub.publish('in', JSON.stringify(msg));
     });
 
+    bot.addListener('bot_nick_change', function(oldNick, newNick) {
+        pub.set('zenircbot:nick', newNick);
+    });
+
     bot.addListener('part', function(channel, nick, reason, message) {
         console.log(nick + ' left ' + channel + ' because ' + reason);
         var msg = {

@@ -17,8 +17,9 @@ function send_privmsg(to, message) {
             data: {
                 to: destination,
                 message: message
-            }}))});
-
+            }
+        }))
+    });
 }
 
 function send_admin_message(message) {

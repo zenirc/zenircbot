@@ -95,6 +95,35 @@ then emit something like::
 
 To the channel specified in the config. It is written in `Node.js`_.
 
+Semantics
+---------
+
+.. _semantics:
+
+This service adds another message type that is sent out over `in`
+which is the `directed_privmsg` type. These are messages that have
+been determined to have been sent to the bot via the following two
+forms::
+
+    ZenIRCBot: commands
+    !commands
+
+It will also grab messages that were sent directly to the bot via a
+PM. It sends the standard envelope like the `privmsg` type. Its `data`
+attribute is slightly different though::
+
+    "data": {
+        "raw_message": "!commands",
+        "message": "commands",
+        "sender": "Wraithan",
+        "channel": "#pdxbots"
+    }
+
+It strips the the way it was determined to be addressed to the bot so
+you can listen specifically for commands to come through rather than
+having to check all possible methods for a person to send a direct
+message. It is written in `Node.js`_.
+
 Troll
 -----
 

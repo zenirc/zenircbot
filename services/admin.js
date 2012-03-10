@@ -4,9 +4,7 @@ var api = require('./lib/api');
 var admin_config = api.load_config('./admin.json');
 var bot_config = api.load_config('../bot.json');
 var sub = api.get_redis_client(bot_config.redis);
-var service_start_regex = new RegExp(bot_config.servers[0].nick + ': start (.*)');
-var service_restart_regex = new RegExp(bot_config.servers[0].nick + ': restart (.*)');
-var service_stop_regex = new RegExp(bot_config.servers[0].nick + ': stop (.*)');
+var service_regex = /(\w+) (.*)/;
 var forever = require('forever');
 var services = {};
 
@@ -18,7 +16,7 @@ language_map = {'js': 'node',
 
 admin_config.services.forEach(start_service)
 
-api.register_commands("admin.js", [{name: "restart <service>",
+api.register_commands("admin.js", [{name: "start <service>",
                                     description: "This will start the service mentioned."},
                                    {name: "restart <service>",
                                     description: "This will restart the service mentioned if it was started via admin.js."},
@@ -30,18 +28,18 @@ api.register_commands("admin.js", [{name: "restart <service>",
 sub.subscribe('in');
 sub.on('message', function(channel, message){
     var msg = JSON.parse(message);
-    if (msg.version == 1 && msg.type == 'privmsg') {
+    if (msg.version == 1 && msg.type == 'directed_privmsg') {
         if (bot_config.servers[0].admin_nicks.indexOf(msg.data.sender) != -1) {
-            if (service_start_regex.test(msg.data.message)) {
-                result = service_start_regex.exec(msg.data.message);
-                start_service(result[1]);
-            } else if (service_restart_regex.test(msg.data.message)) {
-                result = service_restart_regex.exec(msg.data.message);
-                restart_service(result[1]);
-            } else if (service_stop_regex.test(msg.data.message)) {
-                result = service_stop_regex.exec(msg.data.message);
-                stop_service(result[1]);
-            } else if (msg.data.message == bot_config.servers[0].nick + ': pull') {
+            if (service_regex.test(msg.data.message)) {
+                var result = service_regex.exec(msg.data.message);
+                if (result[1] == 'start') {
+                    start_service(result[2]);
+                } else if (result[1] == 'restart') {
+                    restart_service(result[2]);
+                } else if (result[1] == 'stop') {
+                    stop_service(result[2]);
+                }
+            } else if (msg.data.message == 'pull') {
                 git_pull();
             }
         }

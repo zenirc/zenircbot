@@ -31,7 +31,11 @@ function setup() {
     var cfg = server_config_for(0);
     console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick);
     var bot = new irc.Client(cfg.hostname, cfg.nick, cfg);
-    pub.set('zenircbot:nick', cfg.nick);
+
+    bot.addListener('register', function(message) {
+        pub.set('zenircbot:nick', message.args[0]);
+    })
+
     bot.addListener('message', function(nick, to, text, message) {
         console.log(nick + ' said ' + text + ' to ' + to);
         var msg = {
@@ -46,9 +50,13 @@ function setup() {
         pub.publish('in', JSON.stringify(msg));
     });
 
-    // bot.addListener('bot_nick_change', function(oldNick, newNick) {
-    //     pub.set('zenircbot:nick', newNick);
-    // });
+    bot.addListener('nick', function(oldNick, newNick) {
+        pub.get('zenircbot:nick', function(err, nick) {
+            if (nick == oldNick) {
+                pub.set('zenircbot:nick', newNick);
+            }
+        });
+    });
 
     bot.addListener('part', function(channel, nick, reason, message) {
         console.log(nick + ' left ' + channel + ' because ' + reason);

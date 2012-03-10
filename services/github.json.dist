@@ -1,4 +1,4 @@
 {
-    "channel": "#pdxbots"
+    "channels": ["#pdxbots"]
 }
 

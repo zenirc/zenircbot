@@ -27,14 +27,19 @@ function output_version_1(bot, message) {
     }
 }
 
+function unsetRedisKeys(){
+    pub.del('zenircbot:nick');
+}
+
 function setup() {
+    unsetRedisKeys();
     var cfg = server_config_for(0);
     console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick);
     var bot = new irc.Client(cfg.hostname, cfg.nick, cfg);
 
-    bot.addListener('register', function(message) {
-        pub.set('zenircbot:nick', message.args[0]);
-    })
+    bot.addListener('connect', function() {
+        pub.set('zenircbot:nick', bot.nick);
+    });
 
     bot.addListener('message', function(nick, to, text, message) {
         console.log(nick + ' said ' + text + ' to ' + to);
@@ -84,7 +89,7 @@ function setup() {
     });
 
     bot.addListener('error', function(message) {
-	console.log(message);
+        console.log(message);
     });
 
     var output_handlers = {

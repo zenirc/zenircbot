@@ -83,6 +83,10 @@ function setup() {
         pub.publish('in', JSON.stringify(msg));
     });
 
+    bot.addListener('error', function(message) {
+	console.log(message);
+    });
+
     var output_handlers = {
         1: output_version_1,
     };

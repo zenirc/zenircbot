@@ -82,7 +82,7 @@ Then all you need to do is run::
 
     $ python bot.py
 
-Viola, your bot should connect, and go forth on its merry way. It wont
+Voilà, your bot should connect, and go forth on its merry way. It wont
 do anything interesting until you start up services. You can find
 information on starting up :doc:`services`.
 

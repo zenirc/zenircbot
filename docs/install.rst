@@ -49,7 +49,7 @@ Then all you need to do is start the bot::
 
     $ node bot.js
 
-Viola, your bot should connect, join the channels in the config and go
+Voilà, your bot should connect, join the channels in the config and go
 forth on its merry way. It wont do anything interesting until you
 start up services. You can find information on starting up :doc:`services`.
 
@@ -108,7 +108,7 @@ Then you'll start the bot with::
     $ cd clojurebot
     $ lein trampoline run -m zenircbot-clojure.core
 
-Viola, your bot should connect, join the channels in the config and go
+Voilà, your bot should connect, join the channels in the config and go
 forth on its merry way. It wont do anything interesting until you
 start up services. You can find information on starting up :doc:`services`.
 

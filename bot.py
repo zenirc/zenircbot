@@ -15,6 +15,7 @@ class RelayBot(IRCBot):
 
     def __init__(self, *args, **kwargs):
         super(RelayBot, self).__init__(*args, **kwargs)
+        pub.set('zenircbot:nick', self.conn.nick)
         gevent.spawn(self.do_sub)
 
     def do_sub(self):
@@ -66,11 +67,17 @@ class RelayBot(IRCBot):
         pub.publish('in', to_publish)
         print "Sending to in %s" % to_publish
 
+    def do_nick(self, old_nick, command, new_nick):
+        if pub.get('zenircbot:nick') == old_nick:
+            pub.set('zenircbot:nick', new_nick)
+        print "nick change: %s -> %s" % (old_nick, new_nick)
+
     def command_patterns(self):
         return (
             ('/privmsg', self.do_privmsg),
             ('/part', self.do_part),
             ('/quit', self.do_quit),
+            ('/nick', self.do_nick),
         )
 
 

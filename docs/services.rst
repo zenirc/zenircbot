@@ -182,3 +182,5 @@ installed::
 .. _`redis`: http://redis.io/
 .. _`forever`: https://github.com/nodejitsu/forever
 .. _`express`: http://expressjs.com/
+.. _`talkbackbot`: https://github.com/jessamynsmith/talkbackbot
+.. _`quote source`: http://womenshistory.about.com/library/qu/blqulist.htm

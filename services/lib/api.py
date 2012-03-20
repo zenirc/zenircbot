@@ -3,24 +3,19 @@ import json
 from threading import Thread
 
 
-_pub = None
-
 def send_privmsg(to, message):
-    if _pub is None:
-        _pub = get_redis_client()
-    if type(to) == type(''):
+    if isinstance(to, basestring):
         to = (to,)
-    else:
-        for channel in to:
-            _pub.publish('out',
-                         json.dumps({
-                             'version': 1,
-                             'type': 'privmsg',
-                             'data': {
-                                 'to': channel,
-                                 'message': message,
-                             }
-                         }))
+    for channel in to:
+        get_redis_client().publish('out',
+                                   json.dumps({
+                                       'version': 1,
+                                       'type': 'privmsg',
+                                       'data': {
+                                           'to': channel,
+                                           'message': message,
+                                       }
+                                   }))
 
 
 def send_admin_message(message):

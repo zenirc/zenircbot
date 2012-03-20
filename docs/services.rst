@@ -139,6 +139,24 @@ ls
 irssi
     Responds with a suggestion to use weechat.
 
+TWSRS
+-----
+That's What She Really Said
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is a service inspired by `talkbackbot`_ and steals its quote DB
+which it got a lot of from this `quote source`_.
+
+Commands
+~~~~~~~~
+
+That's what she said
+    Responds with a quote from a famous woman when this is said in a
+    channel.
+twsrs
+    This is an actual command and allows one to get quotes without
+    having to say that's what she said.
+
 Weblistener
 -----------
 

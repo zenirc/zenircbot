@@ -21,7 +21,8 @@ for msg in sub.listen():
     if message['version'] == 1:
         if message['type'] == 'privmsg':
             text = message['data']['message']
-            text = str(text).lower().translate(None, """`~!@#$%^&*()_-+={}[];:'"<>,.?/""")
+            text = text.encode('ascii', 'ignore').lower().translate(None,
+                                                                    """`~!@#$%^&*()_-+={}[];:'"<>,.?/""")
             if text.startswith('thats what she said'):
                 api.send_privmsg(message['data']['channel'], get_quote())
         elif message['type'] == 'directed_privmsg':

@@ -88,6 +88,20 @@ function setup() {
         pub.publish('in', JSON.stringify(msg));
     });
 
+    bot.addListener('topic', function(channel, topic, nick, message) {
+        console.log(nick + ' changed ' + channel + '\'s topic to ' + topic);
+        msg = {
+            version: 1,
+            type: 'topic',
+            data: {
+                sender: nick,
+                channel: channel,
+                topic: topic,
+            },
+        };
+        pub.publish('in', JSON.stringify(msg));
+    });
+
     bot.addListener('error', function(message) {
         console.log(message);
     });

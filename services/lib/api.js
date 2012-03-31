@@ -2,7 +2,6 @@ var fs = require('fs');
 var redis_lib = require('redis');
 var pub = null;
 
-
 function send_privmsg(to, message) {
     if (!pub) {
         pub = get_redis_client();
@@ -61,10 +60,21 @@ function get_redis_client(redis_config) {
                                   });
 }
 
+function set_topic(channel, topic) {
+    return get_redis_client().publish('out', JSON.stringify({
+        version: 1,
+        type: 'raw',
+        data: {
+            command: 'TOPIC ' + channel + ' :' + topic,
+        },
+    }));
+}
+
 module.exports = {
     send_privmsg: send_privmsg,
     send_admin_message: send_admin_message,
     register_commands: register_commands,
     load_config: load_config,
-    get_redis_client: get_redis_client
+    get_redis_client: get_redis_client,
+    set_topic: set_topic
 }

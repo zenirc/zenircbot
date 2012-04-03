@@ -43,6 +43,9 @@ function setup() {
 
     bot.addListener('message', function(nick, to, text, message) {
         console.log(nick + ' said ' + text + ' to ' + to);
+        if (to == bot.nick) {
+            to = nick;
+        }
         var msg = {
             version: 1,
             type: 'privmsg',

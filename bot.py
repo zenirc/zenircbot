@@ -31,6 +31,8 @@ class RelayBot(IRCBot):
                                  channel=message['data']['to'])
 
     def do_privmsg(self, nick, message, channel):
+        if not channel:
+            channel = nick
         to_publish = json.dumps({
             'version': 1,
             'type': 'privmsg',

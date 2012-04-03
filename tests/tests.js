@@ -27,7 +27,9 @@ exports.protocol = {
                     console.log(message);
             });
         } else {
-            callback();
+            setTimeout(function() {
+                callback();
+            }, 500);
         }
     },
     tearDown: function(callback) {
@@ -39,6 +41,7 @@ exports.protocol = {
         var msgSent = 'ohai';
         var testChannel = '##pdxbots';
         var timer = setTimeout(function() {
+            console.log('timeout');
             test.done();
         }, 1000);
         this.redis.on('message', function(channel, message) {
@@ -54,6 +57,7 @@ exports.protocol = {
         var msgSent = 'ohai';
         var testChannel = '#pdxbots';
         var timer = setTimeout(function() {
+            console.log('timeout');
             test.done();
         }, 1000);
         this.redis.on('message', function(channel, message) {
@@ -63,7 +67,37 @@ exports.protocol = {
             test.done();
         });
         bot.say(testChannel, msgSent);
-    }
+    },
+    testPM: function(test) {
+        test.expect(6);
+        var msgSent = 'ohai';
+        var timer = setTimeout(function() {
+            console.log('timeout');
+            test.done();
+        }, 1000);
+        this.redis.on('message', function(channel, message) {
+            msg = JSON.parse(message);
+            validate_message(test, msg, botName, msgSent);
+            clearTimeout(timer);
+            test.done();
+        });
+        bot.say('ZenIRCBot', msgSent);
+    },
+    // testJoin: function(test) {
+    //     test.expect(1);
+    //     test.ok(false);
+    //     test.done();
+    // },
+    // testPart: function(test) {
+    //     test.expect(1);
+    //     test.ok(false);
+    //     test.done();
+    // },
+    // testQuit: function(test) {
+    //     test.expect(1);
+    //     test.ok(false);
+    //     test.done();
+    // }
 };
 
 function validate_message(test, message, testChannel, msgSent) {

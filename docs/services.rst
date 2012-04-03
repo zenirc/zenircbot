@@ -27,7 +27,7 @@ Config
 ~~~~~~
 
 The config is very simple, a single option called ``services`` which
-is a list of services you want started when you start ``admin.js``
+is a list of services you want started when you start `admin.js`
 
 Commands
 ~~~~~~~~

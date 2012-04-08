@@ -2,7 +2,7 @@
     "author": "Wraithan (http://wraithan.net)",
     "name": "zenircbot",
     "description": "ZenIRCBot",
-    "version": "2.1.0",
+    "version": "2.1.2",
     "homepage": "http://github.com/wraithan/zenircbot",
     "repository": {
         "type": "git",

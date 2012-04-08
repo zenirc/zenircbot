@@ -1,13 +1,21 @@
 import gevent
 import json
+import argparse
 
 from irc import IRCBot, run_bot
 from gevent import monkey
 from services.lib.api import load_config, get_redis_client
 
 
+parser = argparse.ArgumentParser(
+    description='ZenIRCBot, a new and different bot',
+)
+parser.add_argument('-c', '--config', default='./bot.json',
+                    help='The config to use. (default: %(default)s)')
+opts = parser.parse_args()
+
 monkey.patch_all()
-config = load_config('./bot.json')
+config = load_config(opts.config)
 pub = get_redis_client(config['redis'])
 
 
@@ -24,7 +32,7 @@ class RelayBot(IRCBot):
         self.pubsub.subscribe('out')
         for msg in self.pubsub.listen():
             message = json.loads(msg['data'])
-            print "Got %s" % message
+            print 'Got %s' % message
             if message['version'] == 1:
                 if message['type'] == 'privmsg':
                     self.respond(message['data']['message'],
@@ -44,7 +52,7 @@ class RelayBot(IRCBot):
             })
 
         pub.publish('in', to_publish)
-        print "Sending to in %s" % to_publish
+        print 'Sending to in %s' % to_publish
 
     def do_part(self, nick, command, channel):
         to_publish = json.dumps({
@@ -56,7 +64,7 @@ class RelayBot(IRCBot):
             }
         })
         pub.publish('in', to_publish)
-        print "Sending to in %s" % to_publish
+        print 'Sending to in %s' % to_publish
 
     def do_quit(self, command, nick, channel):
         to_publish = json.dumps({
@@ -67,12 +75,12 @@ class RelayBot(IRCBot):
             }
         })
         pub.publish('in', to_publish)
-        print "Sending to in %s" % to_publish
+        print 'Sending to in %s' % to_publish
 
     def do_nick(self, old_nick, command, new_nick):
         if pub.get('zenircbot:nick') == old_nick:
             pub.set('zenircbot:nick', new_nick)
-        print "nick change: %s -> %s" % (old_nick, new_nick)
+        print 'nick change: %s -> %s' % (old_nick, new_nick)
 
     def command_patterns(self):
         return (

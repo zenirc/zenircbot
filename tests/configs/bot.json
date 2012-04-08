@@ -1,0 +1,29 @@
+{
+    "servers": [
+        {
+            "name": "testing",
+            "hostname": "localhost",
+            "nick": "ZenIRCBot",
+            "userName": "zenircbot",
+            "realName": "ZenIRCBot",
+            "port": 46667,
+            "autoRejoin": true,
+            "autoConnect": true,
+            "channels": ["#pdxbots", "##pdxbots"],
+            "admin_nicks": ["WraithTest", "Wraithan"],
+            "admin_spew_channels": ["#pdxbots"],
+            "secure": false,
+            "selfSigned": false
+        }
+    ],
+    "options": {
+        "debug": false,
+        "floodProtection": true,
+        "stripColors": false
+    },
+    "redis": {
+        "host": "localhost",
+        "port": 46379,
+        "db": 0
+    }
+}

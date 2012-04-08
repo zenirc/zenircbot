@@ -36,14 +36,9 @@ Getting the node.js bot running
 -------------------------------
 
 To start with you'll need to install Node_, npm_ and Redis_. Once you
-have those you'll need to use npm to install the node library for
-redis::
+have those you'll need to use npm to install the dependencies::
 
-    $ npm install redis
-
-You'll also need node-irc_ which is installable via npm as well::
-
-    $ npm install irc
+    $ npm install
 
 Then all you need to do is start the bot::
 
@@ -63,20 +58,19 @@ Getting the python bot running
     these instructions may change in the near future. Also it doesn't
     use all of the options in the ``bot.json``
 
-To start with you'll need to install Python_, virtualenv_ and Redis_
-(all three provided by your OS package manager). Once you have those
-you'll need to use pip to install the python library for redis as well
-as using virtualenv to keep your libraries you installed for ZenIRCBot
-(if you have virtualenvwrapper installed already feel free to use it
-of course)::
+To start with you'll need to install Python_, virtualenv_, libevent
+(libevent-dev if you are on ubuntu) and Redis_ (all three provided by
+your OS package manager). Once you have those you'll want to make and
+activate the virtualenv to keep your libraries you installed for
+ZenIRCBot (if you have virtualenvwrapper installed already feel free
+to use it of course)::
 
     $ virtualenv zib
     $ source zib/bin/activate
-    $ pip install redis
 
-You'll also need irckit_ which is installable via pip as well::
+Then use pip to install the dependencies::
 
-    $ pip install irckit
+    $ pip install -r requirements.txt
 
 Then all you need to do is run::
 

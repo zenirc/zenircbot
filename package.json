@@ -1,0 +1,20 @@
+{
+    "author": "Wraithan (http://wraithan.net)",
+    "name": "zenircbot",
+    "description": "ZenIRCBot",
+    "version": "2.1.2",
+    "homepage": "http://github.com/wraithan/zenircbot",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/wraithan/zenircbot.git"
+    },
+    "dependencies": {"irc": "*",
+                     "redis": "*",
+                     "forever": "*",
+                     "nomnom": "*"},
+    "devDependencies": {"nodeunit": "*"},
+    "optionalDependencies": {},
+    "engines": {
+        "node": "*"
+    }
+}

@@ -35,7 +35,7 @@ please follow the following steps:
 Tests
 -----
 
-There are some integration tests in the `tests folder`. You will need
+There are some integration tests in the `tests folder`_. You will need
 to have circus_, and ngIRCd_ installed in order to use them. You run
 them like so::
 

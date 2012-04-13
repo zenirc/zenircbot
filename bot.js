@@ -21,6 +21,8 @@ zenircbot = {
 
         bot.addListener('connect', function() {
             zenircbot.pub.set('zenircbot:nick', bot.nick);
+            zenircbot.pub.set('zenircbot:admin_spew_channels',
+                              cfg.admin_spew_channels)
         });
 
         bot.addListener('message', function(nick, to, text, message) {
@@ -89,6 +91,7 @@ zenircbot = {
     },
     unsetRedisKeys: function(){
         zenircbot.pub.del('zenircbot:nick');
+        zenircbot.pub.del('zenircbot:admin_spew_channels');
     },
     server_config_for: function(idx) {
         var cfg = zenircbot.config.servers[idx];

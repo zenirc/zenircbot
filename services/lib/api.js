@@ -1,3 +1,5 @@
+console.log('Using lib/api.js is deprecated, please use `npm install zenircbot-api` instead');
+
 var fs = require('fs');
 var redis_lib = require('redis');
 var pub = null;

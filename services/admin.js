@@ -1,9 +1,12 @@
 var sys = require('sys');
 var exec = require('child_process').exec;
-var api = require('./lib/api');
+var api = require('zenircbot-api')
 var admin_config = api.load_config('./admin.json');
 var bot_config = api.load_config('../bot.json');
-var sub = api.get_redis_client(bot_config.redis);
+var zen = new api.ZenIRCBot(bot_config.redis.host,
+                            bot_config.redis.port,
+                            bot_config.redis.db);
+var sub = zen.get_redis_client()
 var service_regex = /(\w+) (.*)/;
 var forever = require('forever');
 var services = {};
@@ -16,7 +19,7 @@ language_map = {'js': 'node',
 
 admin_config.services.forEach(start_service)
 
-api.register_commands("admin.js", [{name: "start <service>",
+zen.register_commands("admin.js", [{name: "start <service>",
                                     description: "This will start the service mentioned."},
                                    {name: "restart <service>",
                                     description: "This will restart the service mentioned if it was started via admin.js."},
@@ -49,13 +52,13 @@ sub.on('message', function(channel, message){
 function start_service(service) {
     if (services[service]) {
         if (services[service].running) {
-            api.send_admin_message(service + ' is already running');
+            zen.send_admin_message(service + ' is already running');
         } else {
-            api.send_admin_message('starting ' + service);
+            zen.send_admin_message('starting ' + service);
             services[service].start();
         }
     } else {
-        api.send_admin_message('starting ' + service);
+        zen.send_admin_message('starting ' + service);
         child = forever.start([language_map[service.split('.')[1]], service], {
             max: 10000,
             silent: false
@@ -68,23 +71,23 @@ function start_service(service) {
 
 function restart_service(service) {
     if (!services[service] || !services[service].running) {
-        api.send_admin_message(service + ' isn\'t running');
+        zen.send_admin_message(service + ' isn\'t running');
     } else {
-        api.send_admin_message('restarting ' + service);
+        zen.send_admin_message('restarting ' + service);
         services[service].restart();
     }
 }
 
 function stop_service(service) {
     if (!services[service] || !services[service].running) {
-        api.send_admin_message(service + ' isn\'t running');
+        zen.send_admin_message(service + ' isn\'t running');
     } else {
-        api.send_admin_message('stopping ' + service);
+        zen.send_admin_message('stopping ' + service);
         services[service].stop();
     }
 }
 
 function git_pull() {
-    api.send_admin_message('pulling down new code');
+    zen.send_admin_message('pulling down new code');
     exec("git pull", puts);
 }

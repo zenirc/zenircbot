@@ -11,7 +11,8 @@
     "dependencies": {"irc": "*",
                      "redis": "*",
                      "forever": "*",
-                     "nomnom": "*"},
+                     "nomnom": "*",
+                     "zenircbot-api": "~2"},
     "devDependencies": {"nodeunit": "*"},
     "optionalDependencies": {},
     "engines": {

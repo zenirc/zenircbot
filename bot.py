@@ -7,6 +7,8 @@ from gevent import monkey
 from services.lib.api import load_config, get_redis_client
 
 
+monkey.patch_all()
+
 parser = argparse.ArgumentParser(
     description='ZenIRCBot, a new and different bot',
 )
@@ -14,7 +16,6 @@ parser.add_argument('-c', '--config', default='./bot.json',
                     help='The config to use. (default: %(default)s)')
 opts = parser.parse_args()
 
-monkey.patch_all()
 config = load_config(opts.config)
 pub = get_redis_client(config['redis'])
 

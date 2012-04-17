@@ -1,14 +1,17 @@
-var api = require('./lib/api');
-var sub = api.get_redis_client();
-var redis = api.get_redis_client();
+var api = require('zenircbot-api');
+var bot_config = api.load_config('../bot.json');
+var zen = new api.ZenIRCBot(bot_config.redis.host,
+                            bot_config.redis.port,
+                            bot_config.redis.db);
+var sub = zen.get_redis_client();
 
-api.register_commands('semantics.js', []);
+zen.register_commands('semantics.js', []);
 
 sub.subscribe('in');
 sub.on('message', function(channel, message) {
     var msg = JSON.parse(message);
     if (msg.version == 1 && msg.type == 'privmsg') {
-        redis.get('zenircbot:nick', function(err, nick) {
+        zen.redis.get('zenircbot:nick', function(err, nick) {
             if (msg.data.message.indexOf(nick + ': ') == 0) {
                 directed_message(msg.data.message,
                                  msg.data.message.substr(nick.length+2),
@@ -31,7 +34,7 @@ sub.on('message', function(channel, message) {
 });
 
 function directed_message(raw_message, message, sender, channel) {
-    redis.publish('in', JSON.stringify({
+    zen.redis.publish('in', JSON.stringify({
         version: 1,
         type: 'directed_privmsg',
         data: {

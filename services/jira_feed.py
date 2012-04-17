@@ -4,11 +4,18 @@ import re
 
 from BeautifulSoup import BeautifulSoup
 from feedparser import parse
-from lib import api
+from zenircbot_api import ZenIRCBot, load_config
 
 
-api.register_commands('jira_feed.py', [])
-jira_config = api.load_config("./jira.json")
+bot_config = load_config('../bot.json')
+
+zen = ZenIRCBot(bot_config['redis']['host'],
+                bot_config['redis']['port'],
+                bot_config['redis']['db'])
+
+
+zen.register_commands('jira_feed.py', [])
+jira_config = load_config("./jira.json")
 jira_url = '%sbrowse/\\1' % jira_config['jira_url']
 latest = None
 
@@ -32,7 +39,7 @@ while True:
                 'resolved' in message or
                 'reopened' in message):
             continue
-        api.send_privmsg(jira_config['channels'],
+        zen.send_privmsg(jira_config['channels'],
                          'JIRA - %s' % re.sub('(?:\s|^)([a-zA-Z][a-zA-Z]-\d+)',
                                               jira_url,
                                               message))

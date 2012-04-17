@@ -1,10 +1,14 @@
-var api = require('./lib/api');
-var sub = api.get_redis_client();
+var api = require('zenircbot-api');
+var bot_config = api.load_config('../bot.json');
+var zen = new api.ZenIRCBot(bot_config.redis.host,
+                            bot_config.redis.port,
+                            bot_config.redis.db);
+var sub = zen.get_redis_client();
 var ticket = /(?:\s|^)([a-zA-Z][a-zA-Z]-\d+)/g;
 var config = api.load_config('./jira.json');
 
 
-api.register_commands('jira_ticket.js', []);
+zen.register_commands('jira_ticket.js', []);
 
 sub.subscribe('in');
 sub.on('message', function(channel, message){
@@ -14,7 +18,7 @@ sub.on('message', function(channel, message){
             var result = ticket.exec(msg.data.message);
             while (result) {
                 console.log(result[1]);
-                api.send_privmsg(config.channels,
+                zen.send_privmsg(config.channels,
                                  config.jira_url + 'browse/' + result[1]);
                 lastIndex = ticket.lastIndex;
                 result = ticket.exec(msg.data.message);

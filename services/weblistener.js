@@ -1,8 +1,11 @@
+var api = require('zenircbot-api');
+var bot_config = api.load_config('../bot.json');
+var zen = new api.ZenIRCBot(bot_config.redis.host,
+                            bot_config.redis.port,
+                            bot_config.redis.db);
+var weblistener_config = api.load_config('./weblistener.json');
 var express = require('express');
 var app = express.createServer();
-var api = require('./lib/api');
-var pub = api.get_redis_client();
-var weblistener_config = api.load_config('./weblistener.json');
 
 
 api.register_commands('weblistener.js', []);
@@ -15,7 +18,7 @@ app.post('/:app', function(req, res) {
         app: req.params.app,
         body: req.body
     };
-    pub.publish('web_in', JSON.stringify(message));
+    zen.redis.publish('web_in', JSON.stringify(message));
     res.send('',404);
 });
 

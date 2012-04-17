@@ -3,11 +3,11 @@ import json
 from zenircbot_api import ZenIRCBot, load_config
 
 
-config = load_config('../bot.json')
+bot_config = load_config('../bot.json')
 
-zen = ZenIRCBot(config['redis']['host'],
-                config['redis']['port'],
-                config['redis']['db'])
+zen = ZenIRCBot(bot_config['redis']['host'],
+                bot_config['redis']['port'],
+                bot_config['redis']['db'])
 
 
 zen.register_commands('twsrs.py', [{'name': 'that\'s what she said',

@@ -102,7 +102,9 @@ The possible ``out`` messages.
             "command": ""
         }
 
-.. warning:: The following API is depreciated, use new_api_ instead.
+.. warning::
+
+    The following API is depreciated, use new_api_ instead.
 
 .. _new_api: http://zenircbot-api.rtfd.org/
 

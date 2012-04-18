@@ -102,14 +102,15 @@ The possible ``out`` messages.
             "command": ""
         }
 
+
+API Library
+-----------
+
 .. warning::
 
     The following API is depreciated, use new_api_ instead.
 
 .. _new_api: http://zenircbot-api.rtfd.org/
-
-API Library
-~~~~~~~~~~~
 
 These are the functions that can be found in the python and node.js
 api library.

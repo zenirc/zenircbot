@@ -108,9 +108,9 @@ API Library
 
 .. warning::
 
-    The following API is depreciated, use new_api_ instead.
+    The following API is depreciated, use the `new API libraries`_ instead.
 
-.. _new_api: http://zenircbot-api.rtfd.org/
+.. _`new API libraries`: http://zenircbot-api.rtfd.org/
 
 These are the functions that can be found in the python and node.js
 api library.

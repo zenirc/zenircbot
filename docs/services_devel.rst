@@ -60,7 +60,7 @@ The possible ``in`` messages.
             "sender": "",
             "channel": "",
             "message": ""
-            }
+        }
 
 .. js:data:: "part"
 
@@ -69,7 +69,7 @@ The possible ``in`` messages.
         "data": {
             "sender": "",
             "channel": ""
-            }
+        }
 
 .. js:data:: "quit"
 
@@ -77,7 +77,7 @@ The possible ``in`` messages.
 
         "data": {
             "sender": ""
-            }
+        }
 
 Out messages
 ~~~~~~~~~~~~

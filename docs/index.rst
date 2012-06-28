@@ -10,6 +10,7 @@ Contents:
    services
    services_devel
    faq
+   future
    contributing
 
 

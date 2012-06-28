@@ -1,4 +1,3 @@
-var sys = require('sys');
 var exec = require('child_process').exec;
 var api = require('zenircbot-api')
 var admin_config = api.load_config('./admin.json');
@@ -11,7 +10,7 @@ var service_regex = /(\w+) (.*)/;
 var forever = require('forever');
 var services = {};
 
-function puts(error, stdout, stderr) { sys.puts(stdout); }
+function puts(error, stdout, stderr) { console.log(stdout); }
 
 language_map = {'js': 'node',
                 'py': 'python',
@@ -19,14 +18,15 @@ language_map = {'js': 'node',
 
 admin_config.services.forEach(start_service)
 
-zen.register_commands("admin.js", [{name: "start <service>",
-                                    description: "This will start the service mentioned."},
-                                   {name: "restart <service>",
-                                    description: "This will restart the service mentioned if it was started via admin.js."},
-                                   {name: "stop <service>",
-                                    description: "This will stop the service mentioned if it was started via admin.js."},
-                                   {name: "git pull",
-                                    description: "This will pull down the code for the zenircbot."}]);
+zen.register_commands("admin.js", [
+    {name: "start <service>",
+     description: "This will start the service mentioned."},
+    {name: "restart <service>",
+     description: "This will restart the service mentioned if it was started via admin.js."},
+    {name: "stop <service>",
+     description: "This will stop the service mentioned if it was started via admin.js."},
+    {name: "git pull",
+     description: "This will pull down the code for the zenircbot."}]);
 
 sub.subscribe('in');
 sub.on('message', function(channel, message){

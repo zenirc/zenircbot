@@ -151,6 +151,6 @@ api library.
    parsing yourself.
 
 .. note::
-    If you port ``lib/api`` to another langauge, please send a
+    If you port ``zenircbot-api`` to another language, please send a
     pull request with it, I'll gladly add it and maintain it to stay
     up to date with any protocol changes.

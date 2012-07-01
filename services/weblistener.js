@@ -8,7 +8,7 @@ var express = require('express');
 var app = express.createServer();
 
 
-api.register_commands('weblistener.js', []);
+zen.register_commands('weblistener.js', []);
 
 app.use(express.bodyParser());
 

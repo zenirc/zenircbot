@@ -4,7 +4,7 @@ python:
 install:
  - pip install pep8 pyflakes --use-mirrors
 before_script:
- - pep8 .
- - pyflakes .
+ - pep8 --exclude=docs .
+ - pyflakes --exclude=docs .
 script:
  - echo python linted

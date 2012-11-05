@@ -56,28 +56,40 @@ The possible ``in`` messages.
 
     Sent whenever a privmsg comes in::
 
+    {
+        "version": 1,
+        "type": "privmsg",
         "data": {
             "sender": "",
             "channel": "",
             "message": ""
         }
+    }
 
 .. js:data:: "part"
 
     Sent whenever someone leaves a channel::
 
+    {
+        "version": 1,
+        "type": "part",
         "data": {
             "sender": "",
             "channel": ""
         }
+    }
 
 .. js:data:: "quit"
 
     Sent whenever someone quits::
 
+    {
+        "version": 1,
+        "type": "quit",
         "data": {
             "sender": ""
         }
+    }
 
 Out messages
 ~~~~~~~~~~~~
@@ -88,19 +100,27 @@ The possible ``out`` messages.
 
     Used to have the bot say something::
 
+    {
+        "version": 1,
+        "type": "privmsg",
         "data": {
             "to": "",
             "message": ""
         }
+    }
 
 
 .. js:data:: "raw"
 
     Used to have the bot send a raw string to the IRC server::
 
+    {
+        "version": 1,
+        "type": "raw",
         "data": {
             "command": ""
         }
+    }
 
 
 API Library

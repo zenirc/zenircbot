@@ -3,10 +3,9 @@ import json
 from threading import Thread
 import warnings
 
-warnings.warn(
-    'lib/api.py is deprecated, please install zenircbot_api and use that instead',
-    DeprecationWarning
-)
+warnings.warn(('lib/api.py is deprecated, please install zenircbot_api and '
+               'use that instead'), DeprecationWarning)
+
 
 def send_privmsg(to, message):
     if isinstance(to, basestring):

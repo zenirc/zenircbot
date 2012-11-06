@@ -9,7 +9,8 @@ zen = ZenIRCBot(bot_config['redis']['host'],
                 bot_config['redis']['port'],
                 bot_config['redis']['db'])
 
-commands = [{
+commands = [
+    {
         'name': '!funday',
         'description': 'Gets a random funday monday from fundayroulette.com'
     }
@@ -18,6 +19,7 @@ commands = [{
 # zen.register_commands(__file__, commands)
 
 funday_url = 'http://fundayroulette.com/api/v1/funday/random/?format=json'
+
 
 def debug(data):
     return
@@ -39,5 +41,6 @@ for msg in sub.listen():
                 debug('funday')
                 res = requests.get(funday_url)
                 funday = json.loads(res.content)
-                zen.send_privmsg(data['channel'], ': '.join([funday['name'],
-                                                             funday['description']]))
+                zen.send_privmsg(data['channel'],
+                                 '%s: %s' % (funday['name'],
+                                             funday['description']))

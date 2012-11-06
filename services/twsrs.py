@@ -10,10 +10,16 @@ zen = ZenIRCBot(bot_config['redis']['host'],
                 bot_config['redis']['db'])
 
 
-zen.register_commands('twsrs.py', [{'name': 'that\'s what she said',
-                                    'description': 'Replies to "That\'s what she said" with quotes from famous women'}])
+zen.register_commands('twsrs.py', [
+    {
+        'name': 'that\'s what she said',
+        'description': ('Replies to "That\'s what she said" with quotes from '
+                        'famous women')
+    }
+])
 
 quote_list = open('twsrs_quotes.txt').readlines()
+
 
 def get_quote():
     """get_quote"""
@@ -29,8 +35,10 @@ for msg in sub.listen():
     if message['version'] == 1:
         if message['type'] == 'privmsg':
             text = message['data']['message']
-            text = text.encode('ascii', 'ignore').lower().translate(None,
-                                                                    """`~!@#$%^&*()_-+={}[];:'"<>,.?/""")
+            # Change to ascii and drop unicode chars.
+            text = text.encode('ascii', 'ignore').lower()
+            # Drop other chars that we don't like.'
+            text = text.translate(None, """`~!@#$%^&*()_-+={}[];:'"<>,.?/""")
             if text.startswith('thats what she said'):
                 zen.send_privmsg(message['data']['channel'], get_quote())
         elif message['type'] == 'directed_privmsg':

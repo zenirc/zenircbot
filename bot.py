@@ -49,8 +49,8 @@ class RelayBot(IRCBot):
                 'sender': nick,
                 'channel': channel,
                 'message': message,
-                },
-            })
+            },
+        })
 
         pub.publish('in', to_publish)
         print 'Sending to in %s' % to_publish

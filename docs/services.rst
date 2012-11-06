@@ -12,10 +12,10 @@ installed::
     $ pip install redis # for Python
 
 
+.. _admin:
+
 Admin
 -----
-
-.. _admin:
 
 This is a service for doing basic things like starting and stopping other
 services or restarting the bot. You'll need to also have semantics_ running as
@@ -44,37 +44,37 @@ stop <service name>
 pull
     This will pull down new code.
 
+.. _github:
+
 Github
 ------
-
-.. _github:
 
 This service relies on the weblistener_ service to pass along the post
 body with the service set in the JSON envelope. It is written in `Node.js`_
 
+.. _jira_feed:
+
 Jira Feed
 ---------
-
-.. _jira_feed:
 
 This service does a check on the specified JIRA issue RSS feed and
 posts to the channel whenever an issue is created, closed, or
 reopened. It is written in `Python`_.
 
+.. _jira_ticket:
+
 Jira Ticket
 -----------
-
-.. _jira_ticket:
 
 This service watches for something formated with 2 letters, a dash,
 then numbers. For example BH-1234, it takes that, and appends it to
 the specified JIRA URL and says it back to the channel so you get
 links to issues automatically. It is written in `Node.js`_.
 
+.. _release:
+
 Release
 -------
-
-.. _release:
 
 This service is akin to the github_ service in that it relies on the
 weblistener_ service to send it data when something is posted to the
@@ -96,10 +96,10 @@ then emit something like::
 
 To the channel specified in the config. It is written in `Node.js`_.
 
+.. _semantics:
+
 Semantics
 ---------
-
-.. _semantics:
 
 This service adds another message type that is sent out over `in`
 which is the `directed_privmsg` type. These are messages that have
@@ -125,10 +125,10 @@ you can listen specifically for commands to come through rather than
 having to check all possible methods for a person to send a direct
 message. It is written in `Node.js`_.
 
+.. _troll:
+
 Troll
 -----
-
-.. _troll:
 
 This service is a basic trolling service. It is written in `Node.js`_.
 
@@ -139,6 +139,8 @@ ls
     Responds with a funny picture.
 irssi
     Responds with a suggestion to use weechat.
+
+.. _twsrs:
 
 TWSRS
 -----
@@ -158,10 +160,10 @@ twsrs
     This is an actual command and allows one to get quotes without
     having to say that's what she said.
 
+.. _weblistener:
+
 Weblistener
 -----------
-
-.. _weblistener:
 
 This is a service that passes along post data to the `web_in` channel in
 redis in the format of::

@@ -17,9 +17,10 @@ Admin
 
 .. _admin:
 
-This is a service for doing basic things like starting and stopping
-other services or restarting the bot. It is written in `Node.js`_ and
-also relies on `forever`_::
+This is a service for doing basic things like starting and stopping other
+services or restarting the bot. You'll need to also have semantics_ running as
+it provides the ``directed_privmsg`` type that `admin.js` relies on. It is
+written in `Node.js`_ and also relies on `forever`_::
 
     $ npm install forever
 

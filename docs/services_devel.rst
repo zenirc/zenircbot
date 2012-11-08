@@ -66,6 +66,36 @@ The possible ``in`` messages.
             }
         }
 
+.. js:data:: "privmsg_action"
+
+    Sent whenever an "ACTION" comes in::
+
+        {
+            "version": 1,
+            "type": "privmsg_action",
+            "data": {
+                "sender": "",
+                "channel": "",
+                "message": ""
+            }
+        }
+
+    The ``message`` property contains the text portion of what was 
+    sent, the IRC-level "\u0001ACTION" prefix is already removed.
+
+.. js:data:: "join"
+
+    Sent whenever someone joins a channel::
+
+        {
+            "version": 1,
+            "type": "join",
+            "data": {
+                "sender": "",
+                "channel": ""
+            }
+        }
+
 .. js:data:: "part"
 
     Sent whenever someone leaves a channel::
@@ -103,6 +133,20 @@ The possible ``out`` messages.
         {
             "version": 1,
             "type": "privmsg",
+            "data": {
+                "to": "",
+                "message": ""
+            }
+        }
+
+
+.. js:data:: "privmsg_action"
+
+    Used to have the bot send an action::
+
+        {
+            "version": 1,
+            "type": "privmsg_action",
             "data": {
                 "to": "",
                 "message": ""

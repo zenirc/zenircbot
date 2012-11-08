@@ -187,14 +187,6 @@ api library.
    This is a helper so you don't have to handle the JSON or the
    envelope yourself.
 
-.. js:function:: send_action(channel, message)
-
-   :param string channel: The channel to send the message to.
-   :param string message: The message to send.
-
-   This is a helper so you don't have to handle the JSON or the
-   envelope yourself. Sends a ``privmsg_action`` type message.
-
 .. js:function:: send_admin_message(message)
 
    :param string message: The message to send.

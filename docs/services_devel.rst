@@ -66,6 +66,36 @@ The possible ``in`` messages.
             }
         }
 
+.. js:data:: "privmsg_action"
+
+    Sent whenever an "ACTION" comes in::
+
+        {
+            "version": 1,
+            "type": "privmsg_action",
+            "data": {
+                "sender": "",
+                "channel": "",
+                "message": ""
+            }
+        }
+
+    The ``message`` property contains the text portion of what was 
+    sent, the IRC-level "\u0001ACTION" prefix is already removed.
+
+.. js:data:: "join"
+
+    Sent whenever someone joins a channel::
+
+        {
+            "version": 1,
+            "type": "join",
+            "data": {
+                "sender": "",
+                "channel": ""
+            }
+        }
+
 .. js:data:: "part"
 
     Sent whenever someone leaves a channel::
@@ -110,6 +140,20 @@ The possible ``out`` messages.
         }
 
 
+.. js:data:: "privmsg_action"
+
+    Used to have the bot send an action::
+
+        {
+            "version": 1,
+            "type": "privmsg_action",
+            "data": {
+                "to": "",
+                "message": ""
+            }
+        }
+
+
 .. js:data:: "raw"
 
     Used to have the bot send a raw string to the IRC server::
@@ -142,6 +186,14 @@ api library.
 
    This is a helper so you don't have to handle the JSON or the
    envelope yourself.
+
+.. js:function:: send_action(channel, message)
+
+   :param string channel: The channel to send the message to.
+   :param string message: The message to send.
+
+   This is a helper so you don't have to handle the JSON or the
+   envelope yourself. Sends a ``privmsg_action`` type message.
 
 .. js:function:: send_admin_message(message)
 

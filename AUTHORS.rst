@@ -9,6 +9,9 @@ Contributors:
 -------------
 - Eric Holscher
 - Don Park
+- Felipe Delgado
+- Josh Yaganeh
+- Aaron Parecki
 
 Special Thanks
 --------------

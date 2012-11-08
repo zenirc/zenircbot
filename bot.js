@@ -67,6 +67,19 @@ zenircbot = {
             });
         });
 
+        bot.addListener('join', function(channel, nick, message) {
+            console.log(nick + ' joined ' + channel);
+            var msg = {
+                version: 1,
+                type: 'join',
+                data: {
+                    sender: nick,
+                    channel: channel,
+                },
+            };
+            zenircbot.pub.publish('in', JSON.stringify(msg));
+        });
+
         bot.addListener('part', function(channel, nick, reason, message) {
             console.log(nick + ' left ' + channel + ' because ' + reason);
             var msg = {

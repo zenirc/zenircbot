@@ -25,6 +25,23 @@ zenircbot = {
                               cfg.admin_spew_channels)
         });
 
+        bot.addListener('ctcp', function(nick, to, text, type) {
+            console.log('action: ' + nick + ' said ' + text + ' to ' + to);
+            if (to == bot.nick) {
+                to = nick;
+            }
+            var msg = {
+                version: 1,
+                type: 'privmsg_action',
+                data: {
+                    sender: nick,
+                    channel: to,
+                    message: text.replace(/^ACTION /, ''),
+                },
+            };
+            zenircbot.pub.publish('in', JSON.stringify(msg));
+        });
+
         bot.addListener('message', function(nick, to, text, message) {
             console.log(nick + ' said ' + text + ' to ' + to);
             if (to == bot.nick) {
@@ -48,6 +65,19 @@ zenircbot = {
                     zenircbot.pub.set('zenircbot:nick', newNick);
                 }
             });
+        });
+
+        bot.addListener('join', function(channel, nick, message) {
+            console.log(nick + ' joined ' + channel);
+            var msg = {
+                version: 1,
+                type: 'join',
+                data: {
+                    sender: nick,
+                    channel: channel,
+                },
+            };
+            zenircbot.pub.publish('in', JSON.stringify(msg));
         });
 
         bot.addListener('part', function(channel, nick, reason, message) {
@@ -107,6 +137,10 @@ zenircbot = {
         case 'privmsg':
             console.log('  privmsg');
             bot.say(message.data.to, message.data.message);
+            break;
+        case 'privmsg_action':
+            console.log('  privmsg_action');
+            bot.say(message.data.to, "\u0001ACTION " + message.data.message + "\u0001");
             break;
         case 'raw':
             console.log('  raw');

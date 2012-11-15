@@ -7,4 +7,4 @@ install:
  - sudo npm install -g jshint
 script:
  - flake8 .
- - jshint *.js{,on} services/*.js{,on}
+ - jshint *.js{,on.dist} services/*.js{,on.dist}

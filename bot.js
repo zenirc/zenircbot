@@ -2,9 +2,9 @@ var irc = require('irc');
 var api = require('./services/lib/api');
 var opts = require('nomnom')
     .option('config', {
-        abbr: 'c',
-        default: 'bot.json',
-        help: 'config file to use'
+        'abbr': 'c',
+        'default': 'bot.json',
+        'help': 'config file to use'
     }).parse()
 
 zenircbot = {
@@ -36,8 +36,8 @@ zenircbot = {
                 data: {
                     sender: nick,
                     channel: to,
-                    message: text.replace(/^ACTION /, ''),
-                },
+                    message: text.replace(/^ACTION /, '')
+                }
             };
             zenircbot.pub.publish('in', JSON.stringify(msg));
         });
@@ -53,8 +53,8 @@ zenircbot = {
                 data: {
                     sender: nick,
                     channel: to,
-                    message: text,
-                },
+                    message: text
+                }
             };
             zenircbot.pub.publish('in', JSON.stringify(msg));
         });
@@ -74,8 +74,8 @@ zenircbot = {
                 type: 'join',
                 data: {
                     sender: nick,
-                    channel: channel,
-                },
+                    channel: channel
+                }
             };
             zenircbot.pub.publish('in', JSON.stringify(msg));
         });
@@ -87,8 +87,8 @@ zenircbot = {
                 type: 'part',
                 data: {
                     sender: nick,
-                    channel: channel,
-                },
+                    channel: channel
+                }
             };
             zenircbot.pub.publish('in', JSON.stringify(msg));
         });
@@ -99,8 +99,8 @@ zenircbot = {
                 version: 1,
                 type: 'quit',
                 data: {
-                    sender: nick,
-                },
+                    sender: nick
+                }
             };
             zenircbot.pub.publish('in', JSON.stringify(msg));
         });
@@ -110,7 +110,7 @@ zenircbot = {
         });
 
         var output_handlers = {
-            1: zenircbot.output_version_1,
+            1: zenircbot.output_version_1
         };
 
         zenircbot.sub.subscribe('out');
@@ -140,7 +140,8 @@ zenircbot = {
             break;
         case 'privmsg_action':
             console.log('  privmsg_action');
-            bot.say(message.data.to, "\u0001ACTION " + message.data.message + "\u0001");
+            bot.say(message.data.to, '\u0001ACTION ' + message.data.message +
+                    '\u0001');
             break;
         case 'raw':
             console.log('  raw');

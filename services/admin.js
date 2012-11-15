@@ -25,7 +25,7 @@ zen.register_commands("admin.js", [
      description: "This will restart the service mentioned if it was started via admin.js."},
     {name: "stop <service>",
      description: "This will stop the service mentioned if it was started via admin.js."},
-    {name: "git pull",
+    {name: "pull",
      description: "This will pull down the code for the zenircbot."}]);
 
 sub.subscribe('in');

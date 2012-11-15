@@ -3,8 +3,8 @@ python:
  - "2.7"
 install:
  - pip install flake8 --use-mirrors
- - apt-get install nodejs
- - npm install -g jshint
+ - sudo apt-get install nodejs
+ - sudo npm install -g jshint
 script:
  - flake8 .
  - jshint *.js{,on} services/*.js{,on}

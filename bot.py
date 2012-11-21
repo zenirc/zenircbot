@@ -32,6 +32,8 @@ class RelayBot(IRCBot):
         self.pubsub = sub.pubsub()
         self.pubsub.subscribe('out')
         for msg in self.pubsub.listen():
+            if msg['type'] != 'message':
+                continue
             message = json.loads(msg['data'])
             print 'Got %s' % message
             if message['version'] == 1:

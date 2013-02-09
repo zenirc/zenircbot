@@ -17,15 +17,15 @@ language_map = {'js': 'node',
                 'rb': 'ruby'}
 
 
-zen.register_commands("admin.js", [
-    {name: "start <service>",
-     description: "This will start the service mentioned."},
-    {name: "restart <service>",
-     description: "This will restart the service mentioned if it was started via admin.js."},
-    {name: "stop <service>",
-     description: "This will stop the service mentioned if it was started via admin.js."},
-    {name: "pull",
-     description: "This will pull down the code for the zenircbot."}])
+zen.register_commands('admin.js', [
+    {name: 'start <service>',
+     description: 'This will start the service mentioned.'},
+    {name: 'restart <service>',
+     description: 'This will restart the service mentioned if it was started via admin.js.'},
+    {name: 'stop <service>',
+     description: 'This will stop the service mentioned if it was started via admin.js.'},
+    {name: 'pull',
+     description: 'This will pull down the code for the zenircbot.'}])
 
 function is_admin(user) {
     return bot_config.servers[0].admin_nicks.indexOf(user) != -1
@@ -88,7 +88,7 @@ var commands = {
     },
     pull: function() {
         zen.send_admin_message('pulling down new code')
-        exec("git pull", puts)
+        exec('git pull', puts)
     }
 }
 

@@ -17,6 +17,7 @@ def is_script(f):
 def get_scripts():
     return {'scripts': [f for f in os.listdir('.') if is_script(f)]}
 
+
 @app.route('/')
 def hello():
     return open('index.html').read()

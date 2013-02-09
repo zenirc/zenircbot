@@ -6,7 +6,7 @@ var zen = new api.ZenIRCBot(bot_config.redis.host,
                             bot_config.redis.port,
                             bot_config.redis.db)
 var sub = zen.get_redis_client()
-var service_regex = /(\w+) (.*)/
+var service_regex = /(\w+) ?(.*)/
 var forever = require('forever')
 var services = {}
 
@@ -39,13 +39,11 @@ sub.on('message', function(channel, message){
             if (is_admin(msg.data.sender)) {
                 if (service_regex.test(msg.data.message)) {
                     var result = service_regex.exec(msg.data.message)
-                    commands[result[1]](result[2])
-                } else {
-                    commands[msg.data.message]()
+                    commands[result[1]].apply(null, [result[2]])
                 }
             }
         } else if (msg.type == 'admin') {
-            commands[msg.data.command].apply(msg.data.args)
+            commands[msg.data.command].apply(null, msg.data.args)
         }
     }
 })
@@ -93,4 +91,4 @@ var commands = {
 }
 
 console.log(admin_config.services)
-admin_config.services.forEach(commands['start'])
+admin_config.services.forEach(commands.start)

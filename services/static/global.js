@@ -19,9 +19,9 @@ $(function(){
 
 function createButton(type, name) {
     var btn = $('<a>', {
-        class: 'btn scriptBtn',
-        text: type,
-        href: '/do/' + type + '/' + name,
+        'class': 'btn scriptBtn',
+        'text': type,
+        'href': '/do/' + type + '/' + name
     })
     return btn
 }

@@ -105,6 +105,20 @@ zenircbot = {
             zenircbot.pub.publish('in', JSON.stringify(msg));
         });
 
+        bot.addListener('topic', function(channel, topic, nick, message) {
+            console.log(nick + ' changed the topic in ' + channel + ' to "' + topic + '"');
+            var msg = {
+                version: 1,
+                type: 'topic',
+                data: {
+                    sender: nick,
+                    channel: channel,
+                    topic: topic
+                }
+            };
+            zenircbot.pub.publish('in', JSON.stringify(msg));
+        });
+
         bot.addListener('error', function(message) {
             console.log(message);
         });

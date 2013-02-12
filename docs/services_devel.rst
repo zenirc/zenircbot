@@ -121,6 +121,20 @@ The possible ``in`` messages.
             }
         }
 
+.. js:data:: "topic"
+
+    Sent whenever a channel's topic is changed::
+
+        {
+            "version": 1,
+            "type": "topic",
+            "data": {
+                "sender": "",
+                "channel": "",
+                "topic": ""
+            }
+        }
+
 Out messages
 ~~~~~~~~~~~~
 

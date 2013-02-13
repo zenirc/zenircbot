@@ -9,11 +9,23 @@ platform, and there is a version that is written in Python_. Two of
 the services are written in or rely on Python_ the rest are written in
 JavaScript.
 
-If you are on Ubuntu, you should probably build and install Node_ and
-npm_ yourself. The packages that provide binaries of each of these
-names are not the things that you want. apt-get install node gives you
-an amateur packet radio program and npm is provided by a magnetic
-resonence imaging program. Neither of which are what ZenIRCBot needs.
+If you are on Ubuntu, then the quickest and easiert way to get a recent 
+version of node is to use a version from a PPA_ (Personal Package Archive).
+This PPA containes the latest stable versions of nodejs.
+
+To install from the PPA make sure you have ``python-software-properties`` 
+installed first otherwise you might be missing the ``add-apt-repository`` 
+command. (Install ``software-properties-common`` on Quantal).
+
+Then run::
+
+    $ sudo add-apt-repository ppa:chris-lea/node.js
+    $ sudo apt-get update
+    $ sudo apt-get install nodejs npm
+
+If you don't want to use the PPA_ then you can always compile node_ and 
+npm_ yourself.
+
 
 Configuring the bot
 -------------------
@@ -117,3 +129,4 @@ start up services. You can find information on starting up :doc:`services`.
 .. _irckit: https://github.com/coleifer/irc
 .. _Clojure: http://clojure.org/
 .. _Leiningen: https://github.com/technomancy/leiningen
+.. _PPA: https://launchpad.net/~chris-lea/+archive/node.js/

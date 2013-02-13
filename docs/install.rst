@@ -9,12 +9,12 @@ platform, and there is a version that is written in Python_. Two of
 the services are written in or rely on Python_ the rest are written in
 JavaScript.
 
-If you are on Ubuntu, then the quickest and easiert way to get a recent 
+If you are on Ubuntu, then the quickest and easiest way to get a recent 
 version of node is to use a version from a PPA_ (Personal Package Archive).
 This PPA containes the latest stable versions of nodejs.
 
 To install from the PPA make sure you have ``python-software-properties`` 
-installed first otherwise you might be missing the ``add-apt-repository`` 
+installed first; otherwise, you might be missing the ``add-apt-repository`` 
 command. (Install ``software-properties-common`` on Quantal).
 
 Then run::

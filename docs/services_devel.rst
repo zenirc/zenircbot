@@ -135,6 +135,24 @@ The possible ``in`` messages.
             }
         }
 
+.. js:data:: "names"
+
+    Sent whenever a list of names is received for a channel::
+
+        {
+            "version": 1,
+            "type": "names",
+            "data": {
+                "channel": "",
+                "nicks": {
+                    "nick": "",
+                    "op_nick": "@"
+                }
+            }
+        }
+
+    This can be triggered by sending a raw command of "NAMES #channel"
+
 Out messages
 ~~~~~~~~~~~~
 

@@ -119,6 +119,20 @@ zenircbot = {
             zenircbot.pub.publish('in', JSON.stringify(msg));
         });
 
+        bot.addListener('names', function(channel, nicks) {
+            console.log('Names: '+channel);
+            console.log(nicks);
+            var msg = {
+                version: 1,
+                type: 'names',
+                data: {
+                    channel: channel,
+                    nicks: nicks
+                }
+            };
+            zenircbot.pub.publish('in', JSON.stringify(msg));
+        });
+
         bot.addListener('error', function(message) {
             console.log(message);
         });

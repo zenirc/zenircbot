@@ -3,10 +3,10 @@
     "name": "zenircbot",
     "description": "ZenIRCBot",
     "version": "2.2.1",
-    "homepage": "http://github.com/wraithan/zenircbot",
+    "homepage": "http://github.com/zenirc/zenircbot",
     "repository": {
         "type": "git",
-        "url": "git://github.com/wraithan/zenircbot.git"
+        "url": "git://github.com/zenirc/zenircbot.git"
     },
     "dependencies": {"irc": "*",
                      "redis": "*",

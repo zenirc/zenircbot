@@ -14,7 +14,7 @@ The `GitHub issue tracker`_ is the prefered method of reporting an
 issue. Please do not apply any tags or milestones, I will do that
 myself when I triage the issue.
 
-.. _`GitHub issue tracker`: https://github.com/wraithan/zenircbot/issues
+.. _`GitHub issue tracker`: https://github.com/zenirc/zenircbot/issues
 
 Code
 ----
@@ -30,7 +30,7 @@ please follow the following steps:
    declined in such a way that you do not want to continue development
    on it.
 
-.. _repo:  https://github.com/wraithan/zenircbot
+.. _repo:  https://github.com/zenirc/zenircbot
 
 Tests
 -----
@@ -50,6 +50,6 @@ if you find that it doesn't work for you.
 Do not feel obligated to add tests for services, only if you are
 expanding the protocol that the bot itself is away of.
 
-.. _`tests folder`: https://github.com/wraithan/zenircbot/tree/master/tests
+.. _`tests folder`: https://github.com/zenirc/zenircbot/tree/master/tests
 .. _circus: https://github.com/mozilla-services/circus
 .. _ngIRCd: http://ngircd.barton.de/

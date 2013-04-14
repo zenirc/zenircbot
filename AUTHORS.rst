@@ -1,18 +1,15 @@
 Authors
 ~~~~~~~
 
-Primary Author
---------------
+Core Developers
+---------------
 - Wraithan
-
-Contributors:
--------------
-- Eric Holscher
-- Don Park
-- Felipe Delgado
-- Josh Yaganeh
 - Aaron Parecki
+
+Contributors
+------------
+https://github.com/zenirc/zenircbot/graphs/contributors
 
 Special Thanks
 --------------
-Aquameta who sponsored and inspired development on this bot.
+Aquameta who sponsored and inspired initial development of this bot.

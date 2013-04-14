@@ -1,7 +1,7 @@
 var ZenIRCBot = require('zenircbot-api').ZenIRCBot
 var zen = new ZenIRCBot()
 var sub = zen.get_redis_client()
-var sourceUrl = 'https://github.com/wraithan/zenircbot'
+var sourceUrl = 'https://github.com/zenirc/zenircbot'
 
 zen.register_commands(
     'troll.js',

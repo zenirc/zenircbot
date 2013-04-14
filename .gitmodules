@@ -1,3 +1,0 @@
-[submodule "clojurebot"]
-	path = clojurebot
-	url = https://github.com/wraithan/zenircbot-clojure.git

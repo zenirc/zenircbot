@@ -1,5 +1,5 @@
 language: node_js
 install:
- - sudo npm install -g jshint
+ - npm install -g jshint
 script:
  - jshint *.js{,on.dist} services/*.js{,on.dist}

@@ -34,7 +34,10 @@ function start_service(service) {
         }
     } else {
         zen.send_admin_message('starting ' + service)
-        var child = forever.start([language_map[service.split('.')[1]], service], {
+        var child = forever.start([language_map[service.split('.')[1]],
+                                   service, bot_config.redis.host,
+                                   bot_config.redis.port,
+                                   bot_config.redis.db], {
             max: 10000,
             silent: false
         })

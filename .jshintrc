@@ -1,3 +1,8 @@
 {
-    "asi": true
+    "asi": true,
+    "node": true,
+    "strict": false,
+    "trailing": true,
+    "curly": true,
+    "eqeqeq": true
 }

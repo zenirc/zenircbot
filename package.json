@@ -8,13 +8,16 @@
         "type": "git",
         "url": "git://github.com/zenirc/zenircbot.git"
     },
-    "dependencies": {"irc": "*",
-                     "redis": "*",
-                     "forever": "*",
-                     "nomnom": "*",
-                     "zenircbot-api": "~2"},
-    "devDependencies": {"nodeunit": "*"},
-    "optionalDependencies": {"googleweather": "*"},
+    "dependencies": {
+        "irc": "0.3.4",
+        "redis": "0.7.2",
+        "forever": "0.10.0",
+        "nomnom": "1.5.2",
+        "zenircbot-api": "2.3.0"
+    },
+    "devDependencies": {
+        "nodeunit": "*"
+    },
     "engines": {
         "node": "*"
     }

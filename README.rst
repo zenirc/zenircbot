@@ -1,9 +1,9 @@
 Repo
-****
+====
 The official repo is now https://github.com/zenirc/zenircbot
 
 Resources
-*********
+---------
 
 * Docs on `Read The Docs`_
 * Issues on `GitHub Issues`_

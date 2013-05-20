@@ -1,5 +1,5 @@
 var irc = require('irc');
-var api = require('./services/lib/api');
+var api = require('zenircbot-api')
 var opts = require('nomnom')
     .option('config', {
         'abbr': 'c',
@@ -9,20 +9,20 @@ var opts = require('nomnom')
 
 zenircbot = {
     setup: function() {
-        zenircbot.config = api.load_config(opts.config);
-        zenircbot.pub = api.get_redis_client(zenircbot.config.redis);
-        zenircbot.sub = api.get_redis_client(zenircbot.config.redis);
+        var config = zenircbot.config = api.load_config(opts.config);
+        var zen = new api.ZenIRCBot(config.redis.host, config.redis.port,
+                                    config.redis.db)
 
-        zenircbot.unsetRedisKeys();
+
+        zenircbot.unsetRedisKeys(zen);
         var cfg = zenircbot.server_config_for(0);
         console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick);
-        zenircbot.irc = new irc.Client(cfg.hostname, cfg.nick, cfg);
-        var bot = zenircbot.irc
+        var bot = zenircbot.irc = new irc.Client(cfg.hostname, cfg.nick, cfg);
 
         bot.addListener('connect', function() {
-            zenircbot.pub.set('zenircbot:nick', bot.nick);
-            zenircbot.pub.set('zenircbot:admin_spew_channels',
-                              cfg.admin_spew_channels)
+            zen.redis.set('zenircbot:nick', bot.nick);
+            zen.redis.set('zenircbot:admin_spew_channels',
+                          cfg.admin_spew_channels)
         });
 
         bot.addListener('ctcp', function(nick, to, text, type) {
@@ -39,7 +39,7 @@ zenircbot = {
                     message: text.replace(/^ACTION /, '')
                 }
             };
-            zenircbot.pub.publish('in', JSON.stringify(msg));
+            zen.redis.publish('in', JSON.stringify(msg));
         });
 
         bot.addListener('message', function(nick, to, text, message) {
@@ -56,13 +56,13 @@ zenircbot = {
                     message: text
                 }
             };
-            zenircbot.pub.publish('in', JSON.stringify(msg));
+            zen.redis.publish('in', JSON.stringify(msg));
         });
 
         bot.addListener('nick', function(oldNick, newNick) {
-            zenircbot.pub.get('zenircbot:nick', function(err, nick) {
+            zen.redis.get('zenircbot:nick', function(err, nick) {
                 if (nick == oldNick) {
-                    zenircbot.pub.set('zenircbot:nick', newNick);
+                    zen.redis.set('zenircbot:nick', newNick);
                 }
             });
         });
@@ -77,7 +77,7 @@ zenircbot = {
                     channel: channel
                 }
             };
-            zenircbot.pub.publish('in', JSON.stringify(msg));
+            zen.redis.publish('in', JSON.stringify(msg));
         });
 
         bot.addListener('part', function(channel, nick, reason, message) {
@@ -90,7 +90,7 @@ zenircbot = {
                     channel: channel
                 }
             };
-            zenircbot.pub.publish('in', JSON.stringify(msg));
+            zen.redis.publish('in', JSON.stringify(msg));
         });
 
         bot.addListener('quit', function(nick, reason, channels, message) {
@@ -102,7 +102,7 @@ zenircbot = {
                     sender: nick
                 }
             };
-            zenircbot.pub.publish('in', JSON.stringify(msg));
+            zen.redis.publish('in', JSON.stringify(msg));
         });
 
         bot.addListener('topic', function(channel, topic, nick, message) {
@@ -116,7 +116,7 @@ zenircbot = {
                     topic: topic
                 }
             };
-            zenircbot.pub.publish('in', JSON.stringify(msg));
+            zen.redis.publish('in', JSON.stringify(msg));
         });
 
         bot.addListener('names', function(channel, nicks) {
@@ -130,7 +130,7 @@ zenircbot = {
                     nicks: nicks
                 }
             };
-            zenircbot.pub.publish('in', JSON.stringify(msg));
+            zen.redis.publish('in', JSON.stringify(msg));
         });
 
         bot.addListener('error', function(message) {
@@ -141,15 +141,16 @@ zenircbot = {
             1: zenircbot.output_version_1
         };
 
-        zenircbot.sub.subscribe('out');
-        zenircbot.sub.on('message', function(channel, message) {
+        sub = zen.get_redis_client(zenircbot.config.redis)
+        sub.subscribe('out');
+        sub.on('message', function(channel, message) {
             var msg = JSON.parse(message);
             output_handlers[msg.version](bot, msg);
         });
     },
-    unsetRedisKeys: function(){
-        zenircbot.pub.del('zenircbot:nick');
-        zenircbot.pub.del('zenircbot:admin_spew_channels');
+    unsetRedisKeys: function(zen){
+        zen.redis.del('zenircbot:nick');
+        zen.redis.del('zenircbot:admin_spew_channels');
     },
     server_config_for: function(idx) {
         var cfg = zenircbot.config.servers[idx];
@@ -163,7 +164,7 @@ zenircbot = {
     output_version_1: function(bot, message) {
         switch (message.type) {
         case 'privmsg':
-            console.log('  privmsg');
+            console.log('  privmsg: ' + JSON.stringify(message));
             bot.say(message.data.to, message.data.message);
             break;
         case 'privmsg_action':

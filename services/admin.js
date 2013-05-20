@@ -1,4 +1,5 @@
 var api = require('zenircbot-api')
+var fs = require('fs')
 var admin_config = api.load_config('./admin.json')
 var bot_config = api.load_config('../bot.json')
 var zen = new api.ZenIRCBot(bot_config.redis)
@@ -8,6 +9,7 @@ var services = {}
 
 var language_map = {
     'js': 'node',
+    'node': 'node',
     'py': 'python',
     'rb': 'ruby',
     'pl': 'perl'
@@ -24,6 +26,22 @@ zen.register_commands('admin.js', [
      description: 'This will stop the service mentioned if it was started via admin.js.'}
 ])
 
+function start(lang, script, service) {
+    var msg = 'starting ' + script + ' using ' + lang
+    console.log(msg)
+    zen.send_admin_message(msg)
+    var child = forever.start([language_map[lang], script,
+                               bot_config.redis.host,
+                               bot_config.redis.port,
+                               bot_config.redis.db], {
+                                   max: 10000,
+                                   silent: false
+                               })
+    forever.startServer(child)
+    services[service] = child
+    forever.cli.list()
+}
+
 function start_service(service) {
     if (services[service]) {
         if (services[service].running) {
@@ -33,17 +51,20 @@ function start_service(service) {
             services[service].start()
         }
     } else {
-        zen.send_admin_message('starting ' + service)
-        var child = forever.start([language_map[service.split('.')[1]],
-                                   service, bot_config.redis.host,
-                                   bot_config.redis.port,
-                                   bot_config.redis.db], {
-            max: 10000,
-            silent: false
-        })
-        forever.startServer(child)
-        services[service] = child
-        forever.cli.list()
+
+        if (/^custom/.test(service)) {
+            fs.readFile(service + '/zenircbot.json', function(err, data) {
+                if (err) {
+                    zen.send_admin_message('error: ' + err)
+                } else {
+                    var conf = JSON.parse(data)
+                    start(conf.lang, service + '/' + conf.entryPoint, service)
+                }
+            })
+        } else {
+            start(service.split('.')[1], service, service)
+        }
+
     }
 }
 

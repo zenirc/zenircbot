@@ -1,7 +1,8 @@
 var api = require('zenircbot-api')
 var fs = require('fs')
-var admin_config = api.load_config('./admin.json')
-var bot_config = api.load_config('../bot.json')
+var path = require('path')
+var admin_config = api.load_config(path.join(__dirname, 'admin.json'))
+var bot_config = api.load_config(path.join(__dirname, '..', '/bot.json'))
 var zen = new api.ZenIRCBot(bot_config.redis)
 var service_regex = /(\w+) (.*)/
 var forever = require('forever')

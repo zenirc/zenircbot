@@ -1,5 +1,0 @@
-gevent
--e git+git://github.com/coleifer/irc.git#egg=irckit
-redis
-argparse
-zenircbot_api

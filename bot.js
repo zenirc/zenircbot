@@ -17,12 +17,20 @@ zenircbot = {
         zenircbot.unsetRedisKeys(zen);
         var cfg = zenircbot.server_config_for(0);
         console.log('irc server: '+cfg.hostname+' nick: '+cfg.nick);
-        var bot = zenircbot.irc = new irc.Client(cfg.hostname, cfg.nick, cfg);
+
+        zenircbot.irc = new irc.Client(cfg.hostname, cfg.nick, cfg);
+        var bot = zenircbot.irc;
+
+        var pingLoopActive = false;
 
         bot.addListener('connect', function() {
-            zen.redis.set('zenircbot:nick', bot.nick);
-            zen.redis.set('zenircbot:admin_spew_channels',
-                          cfg.admin_spew_channels)
+            zenircbot.pub.set('zenircbot:nick', bot.nick);
+            zenircbot.pub.set('zenircbot:admin_spew_channels',
+                              cfg.admin_spew_channels);
+            if(pingLoopActive == false) {
+                console.log("Connected, starting PING request loop");
+                newPingRequest();
+            }
         });
 
         bot.addListener('ctcp', function(nick, to, text, type) {
@@ -120,8 +128,7 @@ zenircbot = {
         });
 
         bot.addListener('names', function(channel, nicks) {
-            console.log('Names: '+channel);
-            console.log(nicks);
+            console.log('Names: '+channel + " " + JSON.stringify(nicks));
             var msg = {
                 version: 1,
                 type: 'names',
@@ -147,6 +154,45 @@ zenircbot = {
             var msg = JSON.parse(message);
             output_handlers[msg.version](bot, msg);
         });
+
+        // Set up "ping" timer
+
+        if(true) {
+            var pingRequestPending = false;
+
+            function newPingRequest() {
+                pingLoopActive =  true;
+                console.log("Sending PING");
+                bot.send("PING "+zenircbot.config.servers[0].hostname);
+                pingRequestPending = true;
+                // Set a timeout waiting for the PONG response
+                setTimeout(function(){
+                    if(pingRequestPending) {
+                        // Timer ran before a pong was received. Assume we're disconnected and re-connect.
+                        console.log("Didn't receive PONG in time, reconnecting...");
+                        pingRequestPending = false;
+                        pingLoopActive =  false;
+                        bot.disconnect(function(){
+                            setTimeout(function(){
+                                bot.connect();
+                            }, 3000);                            
+                        });
+                    } else {
+                        console.log("Ping check succeeded. Checking again.");
+                        newPingRequest();
+                    }
+                }, 5000);
+            }
+
+            bot.addListener('raw', function(message) {
+                if(message.command == "PONG") {
+                    pingRequestPending = false;
+                    console.log("Received PONG");
+                }
+            });
+
+        }
+
     },
     unsetRedisKeys: function(zen){
         zen.redis.del('zenircbot:nick');

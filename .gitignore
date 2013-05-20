@@ -7,3 +7,4 @@ _build
 tests/var/lib
 tests/var/log
 tests/var/run
+services/custom/*

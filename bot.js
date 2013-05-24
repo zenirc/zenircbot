@@ -21,7 +21,7 @@ var zenircbot = {
     zen.redis.set('zenircbot:admin_spew_channels',
                   serverConfig.admin_spew_channels)
 
-    zenircbot.irc = new irc.Client(serverConfig.hostname, serverConfig.nick, 
+    zenircbot.irc = new irc.Client(serverConfig.hostname, serverConfig.nick,
                                    serverConfig)
     zenircbot.pingLoop = {}
     zenircbot.pings = {}

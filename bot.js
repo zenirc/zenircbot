@@ -41,21 +41,24 @@ var zenircbot = {
   },
 
   startPing: function(config, server) {
-    zenircbot.pings = 0
+    zenircbot.pings[server] = 0
 
     zenircbot.pingLoop[server] = setInterval(function() {
       if (zenircbot.pings[server] === config.maxFailures) {
         console.log("Didn't receive PONG in time, reconnecting...")
+        clearInterval(zenircbot.pingLoop[server])
+        zenircbot.pings[server] = 0
+        zenircbot.pingLoop[server] = null
         zenircbot.irc.disconnect(function(){
-          zenircbot.pings[server] = 0
           setTimeout(function(){
             zenircbot.irc.connect()
           }, 2000)
         })
+      } else {
+        zenircbot.pings[server] += 1
+        console.log("Sending PING")
+        zenircbot.irc.send("PING "+server)
       }
-      zenircbot.pings[server] += 1
-      console.log("Sending PING")
-      zenircbot.irc.send("PING "+server)
     }, config.frequency)
   },
 

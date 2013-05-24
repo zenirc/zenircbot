@@ -86,8 +86,7 @@ var zenircbot = {
 
       case 'privmsg_action':
         console.log('  privmsg_action')
-        bot.say(message.data.to,
-                '\u0001ACTION ' + message.data.message + '\u0001')
+        bot.action(message.data.to, message.data.message)
         break
 
       case 'raw':

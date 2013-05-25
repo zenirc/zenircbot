@@ -3,23 +3,25 @@ var redis = require('redis')
 
 var botName = 'WraithTest';
 var bot = null;
+
 function getRedisClient() {
     var client = redis.createClient('46379');
     client.subscribe('in');
     return client
 }
+
 exports.protocol = {
     setUp: function(callback) {
         this.redis = getRedisClient();
         if (!bot) {
             bot = new irc.Client('localhost',
-                                      botName,
-                                      {
-                                          'port': 46667,
-                                          'channels': ['#pdxbots', '##pdxbots']
-                                      });
+                                  botName,
+                                  {
+                                      'port': 46667,
+                                      'channels': ['#pdxbots', '##pdxbots']
+                                   });
             bot.addListener('join', function(channel, nick) {
-                if (channel == '##pdxbots' && nick == botName){
+                if (channel === '##pdxbots' && nick === botName){
                     callback();
                 }
             })
@@ -45,7 +47,7 @@ exports.protocol = {
             test.done();
         }, 1000);
         this.redis.on('message', function(channel, message) {
-            msg = JSON.parse(message);
+            var msg = JSON.parse(message);
             validate_message(test, msg, testChannel, msgSent);
             clearTimeout(timer);
             test.done();
@@ -61,7 +63,7 @@ exports.protocol = {
             test.done();
         }, 1000);
         this.redis.on('message', function(channel, message) {
-            msg = JSON.parse(message);
+            var msg = JSON.parse(message);
             validate_message(test, msg, testChannel, msgSent);
             clearTimeout(timer);
             test.done();
@@ -76,7 +78,7 @@ exports.protocol = {
             test.done();
         }, 1000);
         this.redis.on('message', function(channel, message) {
-            msg = JSON.parse(message);
+            var msg = JSON.parse(message);
             validate_message(test, msg, botName, msgSent);
             clearTimeout(timer);
             test.done();

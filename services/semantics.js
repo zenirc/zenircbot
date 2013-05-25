@@ -19,22 +19,21 @@ function directed_message(raw_message, message, sender, channel) {
 var filtered = zen.filter({version: 1, type: 'privmsg'})
 filtered.on('data', function(msg) {
     zen.redis.get('zenircbot:nick', function(err, nick) {
-        if (msg.data.message.indexOf(nick + ': ') === 0) {
-            directed_message(msg.data.message,
-                             msg.data.message.substr(nick.length+2),
-                             msg.data.sender,
-                             msg.data.channel)
-        } else if (msg.data.message.indexOf('!') === 0) {
-            directed_message(msg.data.message,
-                             msg.data.message.substr(1),
-                             msg.data.sender,
-                             msg.data.channel)
-        } else if (msg.data.channel === msg.data.sender) {
-            directed_message(msg.data.message,
-                             msg.data.message,
-                             msg.data.sender,
-                             msg.data.channel)
-
+        if (!err) {
+            var parsed_message = null
+            if (msg.data.message.indexOf(nick + ': ') === 0) {
+                parsed_message = msg.data.message.substr(nick.length+2)
+            } else if (msg.data.message.indexOf('!') === 0) {
+                parsed_message = msg.data.message.substr(1)
+            } else if (msg.data.channel === msg.data.sender) {
+                parsed_message = msg.data.message
+            }
+            if (parsed_message) {
+                directed_message(msg.data.message,
+                                 parsed_message,
+                                 msg.data.sender,
+                                 msg.data.channel)
+            }
         }
     })
 })

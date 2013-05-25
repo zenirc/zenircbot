@@ -1,6 +1,7 @@
 var api = require('zenircbot-api')
 var fs = require('fs')
 var path = require('path')
+var shell_parse = require('shell-quote').parse
 var admin_config = api.load_config(path.join(__dirname, 'admin.json'))
 var bot_config = api.load_config(path.join(__dirname, '..', '/bot.json'))
 var zen = new api.ZenIRCBot(bot_config.redis)
@@ -27,14 +28,15 @@ zen.register_commands('admin.js', [
      description: 'This will stop the service mentioned if it was started via admin.js.'}
 ])
 
-function start(lang, script, service) {
+function start(lang, script, service, args) {
     var msg = 'starting ' + script + ' using ' + lang
     console.log(msg)
     zen.send_admin_message(msg)
-    var child = forever.start([language_map[lang], script,
-                               bot_config.redis.host,
-                               bot_config.redis.port,
-                               bot_config.redis.db], {
+    var command = [
+        language_map[lang], script, bot_config.redis.host,
+        bot_config.redis.port, bot_config.redis.db
+    ].concat(args)
+    var child = forever.start(command, {
                                    max: 10000,
                                    silent: false
                                })
@@ -54,12 +56,13 @@ function start_service(service) {
     } else {
 
         if (/^custom/.test(service)) {
-            fs.readFile(service + '/zenircbot.json', function(err, data) {
+            fs.readFile(service + '/package.json', function(err, data) {
                 if (err) {
                     zen.send_admin_message('error: ' + err)
                 } else {
                     var conf = JSON.parse(data)
-                    start(conf.lang, service + '/' + conf.entryPoint, service)
+                    var command = shell_parse(conf.scripts.start)
+                    start(command[0], path.join(service, command[1]), service, command.splice(2))
                 }
             })
         } else {

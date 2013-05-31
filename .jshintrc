@@ -4,5 +4,6 @@
     "strict": false,
     "trailing": true,
     "curly": true,
-    "eqeqeq": true
+    "eqeqeq": true,
+    "laxcomma": true
 }

@@ -25,7 +25,11 @@ zen.register_commands('admin.js', [
     {name: 'restart <service>',
      description: 'This will restart the service mentioned if it was started via admin.js.'},
     {name: 'stop <service>',
-     description: 'This will stop the service mentioned if it was started via admin.js.'}
+     description: 'This will stop the service mentioned if it was started via admin.js.'},
+    {name: 'join <channel>',
+     description: 'Joins the channel specified.'},
+    {name: 'part <channel>',
+     description: 'Parts the channel specified.'}
 ])
 
 function start(lang, script, service, args) {
@@ -95,12 +99,22 @@ filtered.on('data', function(msg){
     if (bot_config.servers[0].admin_nicks.indexOf(msg.data.sender) !== -1) {
         if (service_regex.test(msg.data.message)) {
             var result = service_regex.exec(msg.data.message)
-            if (result[1] === 'start') {
-                start_service(result[2])
-            } else if (result[1] === 'restart') {
-                restart_service(result[2])
-            } else if (result[1] === 'stop') {
-                stop_service(result[2])
+            switch (result[1]) {
+                case 'start':
+                    start_service(result[2])
+                    break
+                case 'restart':
+                    restart_service(result[2])
+                    break
+                case 'stop':
+                    stop_service(result[2])
+                    break
+                case 'join':
+                    zen.join_channel(result[2])
+                    break
+                case 'part':
+                    zen.part_channel(result[2])
+                    break
             }
         }
     }

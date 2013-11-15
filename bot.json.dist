@@ -1,33 +1,33 @@
 {
-    "servers": [
-        {
-            "name": "freenode",
-            "hostname": "irc.freenode.net",
-            "nick": "ZenIRCBot",
-            "userName": "zenircbot",
-            "realName": "ZenIRCBot",
-            "port": 6667,
-            "autoRejoin": true,
-            "autoConnect": true,
-            "channels": ["#pdxbots"],
-            "admin_nicks": "YourNick",
-            "admin_spew_channels": ["#pdxbots"],
-            "secure": false,
-            "selfSigned": false,
-            "ping": {
-                "frequency": 10000,
-                "maxFailures": 6
-            }
-        }
-    ],
-    "options": {
-        "debug": false,
-        "floodProtection": true,
-        "stripColors": false
-    },
-    "redis": {
-        "host": "localhost",
-        "port": 6379,
-        "db": 0
+  "servers": [
+    {
+      "name": "freenode",
+      "hostname": "irc.freenode.net",
+      "nick": "ZenIRCBot",
+      "userName": "zenircbot",
+      "realName": "ZenIRCBot",
+      "port": 6667,
+      "autoRejoin": true,
+      "autoConnect": true,
+      "channels": ["#pdxbots"],
+      "admin_nicks": "YourNick",
+      "admin_spew_channels": ["#pdxbots"],
+      "secure": false,
+      "selfSigned": false,
+      "ping": {
+        "frequency": 10000,
+        "maxFailures": 6
+      }
     }
+  ],
+  "options": {
+    "debug": false,
+    "floodProtection": true,
+    "stripColors": false
+  },
+  "redis": {
+    "host": "localhost",
+    "port": 6379,
+    "db": 0
+  }
 }

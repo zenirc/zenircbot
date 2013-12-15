@@ -139,14 +139,17 @@ The possible ``in`` messages.
 
     Sent whenever a list of names is received for a channel::
 
+    If you had nicks: Wraithan, zenircbot, and @aaronpk in #pdxbots
+
         {
             "version": 1,
             "type": "names",
             "data": {
-                "channel": "",
+                "channel": "#pdxbots",
                 "nicks": {
-                    "nick": "",
-                    "op_nick": "@"
+                    "Wraithan": "",
+                    "zenircbot": "",
+                    "aaronpk": "@"
                 }
             }
         }

@@ -14,7 +14,6 @@
                      "nomnom": "*",
                      "zenircbot-api": "~2"},
     "devDependencies": {"nodeunit": "*"},
-    "optionalDependencies": {"googleweather": "*"},
     "engines": {
         "node": "*"
     }

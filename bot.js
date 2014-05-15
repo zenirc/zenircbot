@@ -168,8 +168,11 @@ zenircbot = {
             break;
         case 'privmsg_action':
             console.log('  privmsg_action');
-            bot.say(message.data.to, '\u0001ACTION ' + message.data.message +
-                    '\u0001');
+            bot.say(message.data.to, '\u0001ACTION ' + message.data.message + '\u0001');
+            break;
+        case 'topic':
+            console.log('  topic');
+            bot.send('TOPIC', message.channel, message.topic);
             break;
         case 'raw':
             console.log('  raw');

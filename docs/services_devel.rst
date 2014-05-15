@@ -189,6 +189,20 @@ The possible ``out`` messages.
         }
 
 
+.. js:data:: "topic"
+
+    Used to have the bot change the topic of a channel::
+
+        {
+            "version": 1,
+            "type": "topic",
+            "data": {
+                "channel": "#example",
+                "topic": "topic text"
+            }
+        }
+
+
 .. js:data:: "raw"
 
     Used to have the bot send a raw string to the IRC server::
